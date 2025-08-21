@@ -1,24 +1,45 @@
-# Compiled class file
-*.class
+.DS_Store
 
-# Log file
-*.log
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
 
-# BlueJ files
-*.ctxt
+.idea
+*.iws
+*.iml
+*.ipr
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
 
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
+# Visual Studio Code
+.vscode/launch.json
+.vscode/tasks.json
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+# Node
+node_modules/
+bundle-stats.json
+
+# Jenv
+.java-version
+
+# Maven
+/target/
+.mvn/
+!.mvn/wrapper/maven-wrapper.jar
+mvnw
+mvnw.cmd
+
+.env
+docker_data/
+
+# Config
+dev.properties
