@@ -1,0 +1,65 @@
+{{>layout/header}}
+<div class="container">
+    <h1>{{entityName}}</h1>
+    {{>components/messages}}
+    <div>
+        {{#entity}}
+        <h5>{{#i18n}}notification.dateScheduled.label{{/i18n}}</h5>
+        <p>
+            {{#dateScheduled}}{{.}}{{/dateScheduled}}
+            {{^dateScheduled}}<span class="text-muted">{{#i18n}}system.entity.none{{/i18n}}</span>{{/dateScheduled}}
+        </p>
+        <h5>{{#i18n}}notification.recipient.label{{/i18n}}</h5>
+        <p>
+            {{#notificationRecipientView}}{{{.}}}{{/notificationRecipientView}}
+            {{^notificationRecipientView}}<span class="text-muted">{{#i18n}}system.entity.none{{/i18n}}</span>{{/notificationRecipientView}}
+        </p>
+        <h5>{{#i18n}}notification.notificationStatus.label{{/i18n}}</h5>
+        <p>
+            {{#notificationStatus}}{{label}}{{/notificationStatus}}
+            {{^notificationStatus}}<span class="text-muted">{{#i18n}}system.entity.none{{/i18n}}</span>{{/notificationStatus}}
+        </p>
+        <h5>{{#i18n}}notification.notificationType.label{{/i18n}}</h5>
+        <p>
+            {{#notificationType}}{{.}}{{/notificationType}}
+            {{^notificationType}}<span class="text-muted">{{#i18n}}system.entity.none{{/i18n}}</span>{{/notificationType}}
+        </p>
+        <h5>{{#i18n}}notification.notificationMetadata.label{{/i18n}}</h5>
+        <p>
+            {{#notificationMetadataView}}{{{.}}}{{/notificationMetadataView}}
+            {{^notificationMetadataView}}<span class="text-muted">{{#i18n}}system.entity.none{{/i18n}}</span>{{/notificationMetadataView}}
+        </p>
+        <h5>{{#i18n}}notification.dateTimeProcessed.label{{/i18n}}</h5>
+        <p>
+            {{#dateTimeProcessed}}{{.}}{{/dateTimeProcessed}}
+            {{^dateTimeProcessed}}<span class="text-muted">{{#i18n}}system.entity.none{{/i18n}}</span>{{/dateTimeProcessed}}
+        </p>
+        <h5>{{#i18n}}notification.notificationStatusMetadata.label{{/i18n}}</h5>
+        {{#statusMetadata}}
+            <div class="card">
+                <div class="card-body">
+                    {{#validationResult}}
+                    {{^successful}}
+                        <h5><i class="fa-solid fa-square-xmark text-danger"></i> Validation Failed</h5>
+                        <p>Invalid Reason: {{#invalidReason}}{{.}}{{/invalidReason}}</p>
+                    {{/successful}}
+                    {{/validationResult}}
+                    {{#dispatchResult}}
+                    <h5>{{#successful}}<i class="fa-solid fa-square-check text-success"></i> Sent{{/successful}}{{^successful}}<i class="fa-solid fa-square-xmark text-danger"></i> Not Sent{{/successful}}</h5>
+                    <ul>
+                        <li><strong>Recipient:</strong> {{#recipient}}{{.}}{{/recipient}}</li>
+                        <li><strong>Message:</strong> {{#messageContent}}{{.}}{{/messageContent}}</li>
+                        {{^successful}}<li>Error Message: {{#errorMessage}}{{.}}{{/errorMessage}}</li>{{/successful}}
+                        {{#deliveryDetails}}<li><strong>Delivery Details:</strong>
+                            <div id="delivery_details" data-delivery-details="{{.}}"></div>
+                        </li>{{/deliveryDetails}}
+                    </ul>
+                    {{/dispatchResult}}
+                </div>
+            </div>
+        {{/statusMetadata}}
+        {{>components/show_links_editing_enabled}}
+        {{/entity}}
+    </div>
+</div>
+{{>layout/footer}}
