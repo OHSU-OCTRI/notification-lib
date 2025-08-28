@@ -1,0 +1,12 @@
+{{#notificationStatuses}}
+<li class="nav-item">
+    <a class="toggle-item nav-link nav-link-light {{#-first}}active{{/-first}}" {{#descending}}data-orientation= "desc"{{/descending}} data-toggle="{{label}}" href="#">
+    {{label}}
+    </a>
+</li>
+{{/notificationStatuses}}
+<li class="nav-item">
+    <a class="toggle-item nav-link nav-link-light" data-toggle="all" data-page-to-today href="#">
+    {{#i18n}}notificationList.filter.all{{/i18n}}
+    </a>
+</li>

@@ -1,0 +1,67 @@
+{{>components/form_start}}
+{{#entity}}
+<div class="form-group">
+    <label for="date_scheduled" class="form-label required-field">{{#i18n}}notification.dateScheduled.label{{/i18n}}</label>
+    <div class="input-group date-control">
+        <input type="text" class="form-control" id="date_scheduled" name="dateScheduled" value="{{#dateScheduled}}{{.}}{{/dateScheduled}}"
+            pattern="{{octriViewConfig.datePatternRegex}}" placeholder="{{octriViewConfig.datePatternPlaceholder}}" autocomplete="off"
+            data-provide="datepicker" data-date-format="{{octriViewConfig.datePattern}}">
+        <span class="input-group-text rounded-end"><i class="far fa-calendar-alt"></i></span>
+    </div>
+    <div class="invalid-feedback">{{#i18n}}notification.dateScheduled.validationMessage{{/i18n}}</div>
+</div>
+
+<div class="form-group">
+    <label for="recipient_uuid" class="form-label required-field">{{#i18n}}notification.recipient.label{{/i18n}}</label>
+    <select class="form-select" id="recipient_uuid" name="recipientUuid" value="{{#recipientUuid}}{{.}}{{/recipientUuid}}" required>
+        <option value="">-- {{#i18n}}system.entity.select{{/i18n}} --</option>
+        {{#recipientOptions}}
+        <option value="{{uuid}}" {{#selected}}selected{{/selected}}>{{label}}</option>
+        {{/recipientOptions}}
+    </select>
+    <div class="invalid-feedback">{{#i18n}}notification.recipient.validationMessage{{/i18n}}</div>
+</div>
+
+<div class="form-group">
+    <label for="notification_status" class="form-label required-field">{{#i18n}}notification.notificationStatus.label{{/i18n}}</label>
+    <select class="form-select" id="notification_status" name="notificationStatus" value="{{#notificationStatus}}{{.}}{{/notificationStatus}}" required>
+        <option value="">-- {{#i18n}}system.entity.select{{/i18n}} --</option>
+        {{#notificationStatusOptions}}
+        <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
+        {{/notificationStatusOptions}}
+    </select>
+    <div class="invalid-feedback">{{#i18n}}notification.notificationStatus.validationMessage{{/i18n}}</div>
+</div>
+
+<div class="form-group">
+    <label for="notification_type" class="form-label required-field">{{#i18n}}notification.notificationType.label{{/i18n}}</label>
+    <select class="form-select" id="notification_type" name="notificationType" value="{{#notificationType}}{{.}}{{/notificationType}}" required>
+        <option value="">-- {{#i18n}}system.entity.select{{/i18n}} --</option>
+        {{#notificationTypeOptions}}
+        <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
+        {{/notificationTypeOptions}}
+    </select>
+    <div class="invalid-feedback">{{#i18n}}notification.notificationType.validationMessage{{/i18n}}</div>
+</div>
+
+<div class="form-group">
+    <label for="notification_metadata" class="form-label">{{#i18n}}notification.notificationMetadata.label{{/i18n}}</label>
+    <input type="text" class="form-control" id="notification_metadata" name="notificationMetadata" value="{{#notificationMetadata}}{{.}}{{/notificationMetadata}}" >
+</div>
+
+<div class="form-group">
+    <label for="date_time_processed" class="form-label">{{#i18n}}notification.dateTimeProcessed.label{{/i18n}}</label>
+    <div class="input-group date-control">
+        <input type="text" class="form-control" id="date_time_processed" name="dateTimeProcessed" value="{{#dateTimeProcessed}}{{.}}{{/dateTimeProcessed}}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="yyyy-mm-dd" autocomplete="off" data-provide="datepicker">
+        <span class="input-group-text rounded-end"><i class="far fa-calendar-alt"></i></span>
+    </div>
+    <div class="invalid-feedback">{{#i18n}}notification.dateTimeProcessed.validationMessage{{/i18n}}</div>
+</div>
+
+<div class="form-group">
+    <label for="notification_status_metadata" class="form-label">{{#i18n}}notification.notificationStatusMetadata.label{{/i18n}}</label>
+    <input type="text" class="form-control" id="notification_status_metadata" name="notificationStatusMetadata" value="{{#notificationStatusMetadata}}{{.}}{{/notificationStatusMetadata}}" >
+</div>
+
+{{/entity}}
+{{>components/form_end}}

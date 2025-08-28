@@ -11,7 +11,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.4</version>
+		<version>3.5.5</version>
 		<relativePath />
 		<!-- lookup parent from repository -->
 	</parent>
@@ -43,6 +43,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>17</java.version>
+		<common_lib.version>1.7.0</common_lib.version>
+		<messaginglib.version>0.1.0</messaginglib.version>
 	</properties>
 
 	<distributionManagement>
@@ -56,8 +58,26 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-batch</artifactId>
+		</dependency>
+  		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.octri.common</groupId>
+			<artifactId>common_lib</artifactId>
+			<version>${common_lib.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.octri.messaging</groupId>
+			<artifactId>messaging_lib</artifactId>
+			<version>${messaginglib.version}</version>
 		</dependency>
 	</dependencies>
 
