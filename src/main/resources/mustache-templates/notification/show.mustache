@@ -34,23 +34,23 @@
             {{#dateTimeProcessed}}{{.}}{{/dateTimeProcessed}}
             {{^dateTimeProcessed}}<span class="text-muted">{{#i18n}}system.entity.none{{/i18n}}</span>{{/dateTimeProcessed}}
         </p>
-        <h5>{{#i18n}}notification.notificationStatusMetadata.label{{/i18n}}</h5>
         {{#statusMetadata}}
+            <h5>{{#i18n}}notification.notificationStatusMetadata.label{{/i18n}}</h5>
             <div class="card">
                 <div class="card-body">
                     {{#validationResult}}
                     {{^successful}}
-                        <h5><i class="fa-solid fa-square-xmark text-danger"></i> Validation Failed</h5>
-                        <p>Invalid Reason: {{#invalidReason}}{{.}}{{/invalidReason}}</p>
+                        <h5><i class="fa-solid fa-square-xmark text-danger"></i> {{#i18n}}notificationStatusMetadata.validationFailed.label{{/i18n}}</h5>
+                        <p>{{#i18n}}notificationStatusMetadata.validationFailed.reason.label{{/i18n}}: {{#invalidReason}}{{.}}{{/invalidReason}}</p>
                     {{/successful}}
                     {{/validationResult}}
                     {{#dispatchResult}}
-                    <h5>{{#successful}}<i class="fa-solid fa-square-check text-success"></i> Sent{{/successful}}{{^successful}}<i class="fa-solid fa-square-xmark text-danger"></i> Not Sent{{/successful}}</h5>
+                    <h5>{{#successful}}<i class="fa-solid fa-square-check text-success"></i> {{#i18n}}notificationStatusMetadata.sendSuccessful.label{{/i18n}}{{/successful}}{{^successful}}<i class="fa-solid fa-square-xmark text-danger"></i> {{#i18n}}notificationStatusMetadata.sendFailed.label{{/i18n}}{{/successful}}</h5>
                     <ul>
-                        <li><strong>Recipient:</strong> {{#recipient}}{{.}}{{/recipient}}</li>
-                        <li><strong>Message:</strong> {{#messageContent}}{{.}}{{/messageContent}}</li>
-                        {{^successful}}<li>Error Message: {{#errorMessage}}{{.}}{{/errorMessage}}</li>{{/successful}}
-                        {{#deliveryDetails}}<li><strong>Delivery Details:</strong>
+                        <li><strong>{{#i18n}}notification.recipient.label{{/i18n}}:</strong> {{#recipient}}{{.}}{{/recipient}}</li>
+                        <li><strong>{{#i18n}}notificationStatusMetadata.message.label{{/i18n}}:</strong> {{#messageContent}}{{.}}{{/messageContent}}</li>
+                        {{^successful}}<li>{{#i18n}}notificationStatusMetadata.errorMessage.label{{/i18n}}: {{#errorMessage}}{{.}}{{/errorMessage}}</li>{{/successful}}
+                        {{#deliveryDetails}}<li><strong>{{#i18n}}notificationStatusMetadata.deliveryDetails.label{{/i18n}}:</strong>
                             <div id="delivery_details" data-delivery-details="{{.}}"></div>
                         </li>{{/deliveryDetails}}
                     </ul>
