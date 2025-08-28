@@ -7,6 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Initial scaffolding of the project
+- Initial implementation of the project
 
 [unreleased]: https://github.com/OHSU-OCTRI/notification-lib/
