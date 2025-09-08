@@ -11,13 +11,11 @@ import org.octri.notification.validator.NotificationValidator;
 import org.octri.notification.view.NotificationViewer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 /**
  * The registry for adding a new NotificationType and NotificationHandler.
  */
-@Component
 public class NotificationTypeRegistry {
 
 	private static final Logger logger = LoggerFactory.getLogger(NotificationTypeRegistry.class);

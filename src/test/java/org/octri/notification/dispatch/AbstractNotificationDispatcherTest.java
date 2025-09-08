@@ -17,7 +17,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.octri.messaging.exception.UnsuccessfulDeliveryException;
 import org.octri.messaging.service.MessageDeliveryService;
-import org.octri.notification.config.NotificationConfig;
+import org.octri.notification.config.NotificationProperties;
 
 @ExtendWith(MockitoExtension.class)
 public class AbstractNotificationDispatcherTest {
@@ -26,7 +26,7 @@ public class AbstractNotificationDispatcherTest {
 	MessageDeliveryService messageDeliveryService;
 
 	@Mock
-	NotificationConfig notificationConfig;
+	NotificationProperties notificationProperties;
 
 	TestNotificationDispatcher notificationDispatcher;
 
@@ -40,12 +40,12 @@ public class AbstractNotificationDispatcherTest {
 	@BeforeEach
 	public void setup() {
 		notificationDispatcher = new TestNotificationDispatcher(messageDeliveryService,
-				notificationConfig, null);
+				notificationProperties, null);
 	}
 
 	@Test
 	void testSendEmail() {
-		mockNotificationConfig();
+		mocknotificationProperties();
 		mockSuccessfulSendEmail();
 		var dispatchResult = notificationDispatcher.sendEmail(PARTICIPANT_EMAIL, EMAIL_SUBJECT, CONTENT);
 		assertTrue(dispatchResult.successful(), "Dispatch should be successful.");
@@ -65,7 +65,7 @@ public class AbstractNotificationDispatcherTest {
 
 	@Test
 	void testSendSms() {
-		mockNotificationConfig();
+		mocknotificationProperties();
 		mockSuccessfulSendSms();
 		var dispatchResult = notificationDispatcher.sendSms(PARTICIPANT_MOBILE, CONTENT);
 		assertTrue(dispatchResult.successful(), "Dispatch should be successful.");
@@ -83,9 +83,9 @@ public class AbstractNotificationDispatcherTest {
 				"Intended message content should still be present and should match.");
 	}
 
-	private void mockNotificationConfig() {
-		lenient().when(notificationConfig.getEmail()).thenReturn(NOTIFICATION_SENDER_EMAIL);
-		lenient().when(notificationConfig.getSmsNumber()).thenReturn(NOTIFICATION_SENDER_SMS_NUMBER);
+	private void mocknotificationProperties() {
+		lenient().when(notificationProperties.getEmail()).thenReturn(NOTIFICATION_SENDER_EMAIL);
+		lenient().when(notificationProperties.getSmsNumber()).thenReturn(NOTIFICATION_SENDER_SMS_NUMBER);
 	}
 
 	private void mockSuccessfulSendEmail() {

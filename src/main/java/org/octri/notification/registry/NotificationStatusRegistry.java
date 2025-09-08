@@ -10,7 +10,6 @@ import org.octri.notification.batch.NotificationItemReader;
 import org.octri.notification.batch.NotificationItemWriter;
 import org.octri.notification.domain.DefaultNotificationStatus;
 import org.octri.notification.domain.NotificationStatus;
-import org.springframework.stereotype.Component;
 
 /**
  * This component allows applications to register or deregister a {@link NotificationStatus}. This library expects to
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Component;
  * {@link NotificationItemWriter}, so these Beans would need to be overridden if an application needs to support
  * custom statuses.
  */
-@Component
 public class NotificationStatusRegistry {
 
 	private List<NotificationStatus> statuses = new ArrayList<>();

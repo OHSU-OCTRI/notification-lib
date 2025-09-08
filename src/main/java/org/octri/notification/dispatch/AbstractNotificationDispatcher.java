@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.octri.messaging.exception.UnsuccessfulDeliveryException;
 import org.octri.messaging.service.MessageDeliveryService;
-import org.octri.notification.config.NotificationConfig;
+import org.octri.notification.config.NotificationProperties;
 import org.octri.notification.domain.DispatchResult;
 
 import com.samskivert.mustache.Mustache;
@@ -15,7 +15,7 @@ import com.samskivert.mustache.Mustache;
 public abstract class AbstractNotificationDispatcher implements NotificationDispatcher {
 
 	private final MessageDeliveryService messageDeliveryService;
-	private final NotificationConfig notificationConfig;
+	private final NotificationProperties notificationProperties;
 	private final Mustache.Compiler mustacheCompiler;
 
 	/**
@@ -23,15 +23,15 @@ public abstract class AbstractNotificationDispatcher implements NotificationDisp
 	 * 
 	 * @param messageDeliveryService
 	 *            service for delivering messages
-	 * @param notificationConfig
+	 * @param notificationProperties
 	 *            configuration for notifications
 	 * @param mustacheCompiler
 	 *            Mustache compiler for templating
 	 */
 	public AbstractNotificationDispatcher(MessageDeliveryService messageDeliveryService,
-			NotificationConfig notificationConfig, Mustache.Compiler mustacheCompiler) {
+			NotificationProperties notificationProperties, Mustache.Compiler mustacheCompiler) {
 		this.messageDeliveryService = messageDeliveryService;
-		this.notificationConfig = notificationConfig;
+		this.notificationProperties = notificationProperties;
 		this.mustacheCompiler = mustacheCompiler;
 	}
 
@@ -61,7 +61,8 @@ public abstract class AbstractNotificationDispatcher implements NotificationDisp
 	 */
 	public DispatchResult sendEmail(String recipient, String subject, String messageContent) {
 		try {
-			var deliveryDetails = messageDeliveryService.sendEmail(notificationConfig.getEmail(), recipient, subject,
+			var deliveryDetails = messageDeliveryService.sendEmail(notificationProperties.getEmail(), recipient,
+					subject,
 					messageContent);
 			return new DispatchResult(true, messageContent, recipient,
 					deliveryDetails.isPresent() ? deliveryDetails.get() : null, null);
@@ -81,7 +82,7 @@ public abstract class AbstractNotificationDispatcher implements NotificationDisp
 	 */
 	public DispatchResult sendSms(String recipient, String messageContent) {
 		try {
-			var deliveryDetails = messageDeliveryService.sendSms(notificationConfig.getSmsNumber(), recipient,
+			var deliveryDetails = messageDeliveryService.sendSms(notificationProperties.getSmsNumber(), recipient,
 					messageContent);
 			return new DispatchResult(true, messageContent, recipient,
 					deliveryDetails.isPresent() ? deliveryDetails.get() : null, null);
@@ -104,8 +105,8 @@ public abstract class AbstractNotificationDispatcher implements NotificationDisp
 	 * 
 	 * @return the notification configuration
 	 */
-	public NotificationConfig getNotificationConfig() {
-		return notificationConfig;
+	public NotificationProperties getNotificationProperties() {
+		return notificationProperties;
 	}
 
 	/**

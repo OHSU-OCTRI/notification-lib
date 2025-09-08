@@ -8,12 +8,10 @@ import org.springframework.batch.core.configuration.DuplicateJobException;
 import org.springframework.batch.core.explore.JobExplorer;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 /**
  * The component that handles running the job if it's not already in progress
  */
-@Component
 public class NotificationBatchJob {
 
 	private final JobExplorer jobExplorer;
