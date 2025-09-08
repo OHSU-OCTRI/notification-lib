@@ -26,6 +26,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.transaction.PlatformTransactionManager;
 
 /**
@@ -74,6 +76,18 @@ public class NotificationBatchConfig {
 		this.notificationProperties = notificationProperties;
 		this.notificationTypeRegistry = notificationTypeRegistry;
 		this.recipientFinder = recipientFinder;
+	}
+
+	/**
+	 * Dedicated TaskScheduler for the jobs in this library so they run in their own thread pool. This should prevent
+	 * them from interfering with other scheduled jobs implemented in the application.
+	 */
+	@Bean
+	public TaskScheduler notificationTaskScheduler() {
+		ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+		scheduler.setThreadNamePrefix("notification-scheduler-");
+		scheduler.initialize();
+		return scheduler;
 	}
 
 	/**

@@ -68,7 +68,7 @@ public class NotificationBatchJob {
 	 * @throws Exception
 	 *             exception thrown by the jobLauncher
 	 */
-	@Scheduled(cron = "${octri.notifications.schedule:@yearly}")
+	@Scheduled(cron = "${octri.notifications.schedule:@yearly}", scheduler = "notificationTaskScheduler")
 	public void runScheduledNotificationJob() throws Exception {
 		runNotificationJob(ProcessingMode.SCHEDULED);
 	}
