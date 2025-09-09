@@ -13,7 +13,7 @@ A notification type can be configured with one of two processing modes:
 
 Create a class that implements the [`NotificationValidator`](src/main/java/org/octri/notification/validator/NotificationValidator.java) interface. It should accept a Notification and return a ValidationResult. Here is an example of a simple validation for a Client Welcome Notification:
 
-```
+```java
 public class ClientWelcomeValidator implements NotificationValidator {
 
 	@Override
@@ -36,7 +36,7 @@ public class ClientWelcomeValidator implements NotificationValidator {
 
 Create a class that implements the [`NotificationDispatcher`](src/main/java/org/octri/notification/dispatch/NotificationDispatcher.java) interface. It should accept a Notification, send the message, and return a DispatchResult. Here is an example of a Client Welcome Dispatcher:
 
-```
+```java
 public class ClientWelcomeDispatcher implements NotificationDispatcher {
 
 	private final MessageDeliveryService messageDeliveryService;
@@ -73,7 +73,7 @@ This package provides an AbstractNotificationDispatcher that can be extended. It
 
 Some validators and dispatchers will need additional information to process the Notification. The[`NotificationMetadata`](src/main/java/org/octri/notification/metadata/NotificationMetadata.java) interface can be used to preserve metadata in JSON format to the notificationMetadata field on the Notification. As an example, consider a notification to let a participant know that new surveys are available for completion. The application will need to know which assignment the Notification was created for (e.g., 1 Month Followup) to ensure it's still valid and dispatch appropriately. The metadata class might look like this:
 
-```
+```java
 public class SurveyReminderMetadata extends NotificationMetadata {
 
 	private Long assignmentId;
@@ -99,13 +99,13 @@ public class SurveyReminderMetadata extends NotificationMetadata {
 
 This will be persisted to the notificationMetadata field in the database as:
 
-```
+```json
 {"assignmentId": 1}
 ```
 
 This provides the application the additional context needed. In the example below, the assignmentId is used by the validator to ensure the notification is for an assignment that is still current.
 
-```
+```java
 public class SurveyReminderValidator implements NotificationValidator {
 
 	private final AssignmentService assignmentService;
@@ -144,7 +144,7 @@ This package also provides a convenient abstract metadata class for sending foll
 
 Applications can customize how Notifications appear in the list and show views provided by this package. Implement a [`NotificationViewer`](src/main/java/org/octri/notification/view/NotificationViewer.java) to format the way the Recipient and the NotificationMetadata appear in the UI. For example, this method overrides the way a recipient appears, adding a hyperlink and finding the recipient object so it can use specific fields:
 
-```
+```java
 @Override
 public String getRecipientView(Notification notification) {
     var participant = participantService.findByUuid(notification.getRecipientUuid());
@@ -155,7 +155,7 @@ public String getRecipientView(Notification notification) {
 
 This method overrides the way notificationMetadata is shown to the user:
 
-```
+```java
 	@Override
 	public String getMetadataView(Notification notification) {
 		SurveyReminderMetadata metadata = notification.getNotificationMetadata(SurveyReminderMetadata.class);
@@ -175,7 +175,7 @@ This is how it will manifest in the Recipient and Info columns of the list page:
 
 With all the necessary classes defined, use the [`NotificationTypeRegistry`](src/main/java/org/octri/notification/registry/NotificationTypeRegistry.java) to handle the new custom type.
 
-```
+```java
 @Component
 public class NotificationRegistration {
 

@@ -156,7 +156,7 @@ If Twilio is configured, there is a Spring Batch job that will periodically chec
 
 This library has 3 default statuses for Notifications: SCHEDULED, INACTIVE, and SENT, but it provides a NotificationStatusRegistry bean that can be used to override these statuses. Applications should take care to also override any functionality in this library that relies on the default statuses for behavior. If you simply want to override the "label" for the status without changing the names or any functionality, you can follow this example that overrides the SCHEDULED status with the label "Queued":
 
-```
+```java
 notificationStatusRegistry.register(new NotificationStatus() {
 
 	@Override
