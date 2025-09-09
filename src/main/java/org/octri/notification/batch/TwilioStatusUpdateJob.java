@@ -56,7 +56,7 @@ public class TwilioStatusUpdateJob {
 	 * @throws Exception
 	 *             thrown by the JobLauncher
 	 */
-	@Scheduled(cron = "${ctri.notifications.twilio-update-schedule:@yearly}", scheduler = "notificationTaskScheduler")
+	@Scheduled(cron = "${octri.notifications.twilio-update-schedule:@yearly}", scheduler = "notificationTaskScheduler")
 	public void runScheduledTwilioUpdateJob() throws Exception {
 		runTwilioUpdateJob();
 	}
