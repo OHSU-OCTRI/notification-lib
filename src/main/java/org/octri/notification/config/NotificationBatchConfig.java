@@ -81,6 +81,8 @@ public class NotificationBatchConfig {
 	/**
 	 * Dedicated TaskScheduler for the jobs in this library so they run in their own thread pool. This should prevent
 	 * them from interfering with other scheduled jobs implemented in the application.
+	 * 
+	 * @return the task scheduler
 	 */
 	@Bean
 	public TaskScheduler notificationTaskScheduler() {

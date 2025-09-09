@@ -1,0 +1,61 @@
+{
+    "name": "notificationlib",
+    "version": "1.0.0",
+    "description": "User interface for the OCTRI Notification Library",
+    "main": "index.js",
+    "scripts": {
+        "analyze": "webpack --mode=production; webpack --profile --json > bundle-stats.json; webpack-bundle-analyzer bundle-stats.json ./target/classes/static/assets",
+        "build": "webpack --mode=production",
+        "build-css": "sass  --load-path ./node_modules/ src/main/resources/frontend/scss/app.scss ./target/classes/static/assets/css/app.css",
+        "build:dev": "webpack --mode=development",
+        "format": "prettier --write ./*.js src/main/resources/**/*.{js,vue,spec.js}",
+        "format:check": "prettier --check ./*.js src/main/resources/**/*.{js,vue,spec.js}",
+        "lint:js": "eslint ./*.js src/main/resources/**/*.{js,vue,spec.js}",
+        "start": "webpack --mode=development --progress --colors --watch",
+        "test": "karma start --single-run",
+        "test-jenkins": "karma start karma.conf.js --single-run --reporters junit --browsers Chrome_Headless"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:OHSU-OCTRI/notification-lib.git"
+    },
+    "author": "Oregon Clinical & Translational Research Institute (OCTRI) <octrihlp@ohsu.edu> (https://github.com/OCTRI)",
+    "license": "BSD-3-Clause",
+    "devDependencies": {
+        "@babel/core": "^7.17.5",
+        "@babel/eslint-parser": "^7.17.0",
+        "@babel/plugin-transform-runtime": "^7.17.0",
+        "@babel/preset-env": "^7.16.11",
+        "@babel/runtime": "^7.17.2",
+        "@vue/test-utils": "^2.0.0-rc.17",
+        "babel-loader": "^8.2.3",
+        "bootstrap": "^5.3.3",
+        "css-loader": "^6.7.1",
+        "eslint": "^8.10.0",
+        "eslint-plugin-vue": "^8.5.0",
+        "flush-promises": "^1.0.2",
+        "jasmine": "^4.0.2",
+        "jquery": "^3.5.1",
+        "karma": "^6.3.4",
+        "karma-chrome-launcher": "^3.1.1",
+        "karma-jasmine": "^4.0.1",
+        "karma-junit-reporter": "2.0.1",
+        "karma-sourcemap-loader": "^0.3.7",
+        "karma-spec-reporter": "^0.0.33",
+        "karma-webpack": "^5.0.0",
+        "mini-css-extract-plugin": "^2.6.0",
+        "prettier": "^2.5.1",
+        "sass": "^1.77.0",
+        "sass-loader": "^14.2.1",
+        "style-loader": "^3.3.1",
+        "vue-loader": "^17.0.0",
+        "webpack": "^5.70.0",
+        "webpack-bundle-analyzer": "^4.5.0",
+        "webpack-cli": "^4.9.2"
+    },
+    "dependencies": {
+        "core-js": "^3.11.0",
+        "vue": "^3.2.36",
+        "vue-json-pretty": "^2.4.0"
+    }
+}
