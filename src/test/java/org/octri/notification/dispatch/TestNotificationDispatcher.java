@@ -1,7 +1,7 @@
 package org.octri.notification.dispatch;
 
 import org.octri.messaging.service.MessageDeliveryService;
-import org.octri.notification.config.NotificationConfig;
+import org.octri.notification.config.NotificationProperties;
 import org.octri.notification.domain.DispatchResult;
 import org.octri.notification.domain.Notification;
 
@@ -13,8 +13,8 @@ import com.samskivert.mustache.Mustache.Compiler;
 public class TestNotificationDispatcher extends AbstractNotificationDispatcher {
 
 	public TestNotificationDispatcher(MessageDeliveryService messageDeliveryService,
-			NotificationConfig notificationConfig, Compiler mustacheCompiler) {
-		super(messageDeliveryService, notificationConfig, mustacheCompiler);
+			NotificationProperties notificationProperties, Compiler mustacheCompiler) {
+		super(messageDeliveryService, notificationProperties, mustacheCompiler);
 	}
 
 	@Override

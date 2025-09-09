@@ -1,14 +1,12 @@
 package org.octri.notification.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * Configuration properties for the notification system
  */
-@Configuration
 @ConfigurationProperties(prefix = "octri.notifications")
-public class NotificationConfig {
+public class NotificationProperties {
 
 	private Boolean enabled;
 

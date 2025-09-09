@@ -41,7 +41,7 @@ public class TwilioStatusBatchConfig {
 
 	private final PlatformTransactionManager transactionManager;
 
-	private final NotificationConfig notificationConfig;
+	private final NotificationProperties notificationProperties;
 	private final NotificationRepository notificationRepository;
 
 	private final TwilioHelper twilioHelper;
@@ -56,8 +56,8 @@ public class TwilioStatusBatchConfig {
 	 *            the JobLauncher
 	 * @param transactionManager
 	 *            the PlatformTransactionManager
-	 * @param notificationConfig
-	 *            the NotificationConfig
+	 * @param notificationProperties
+	 *            the notificationProperties
 	 * @param notificationRepository
 	 *            the NotificationRepository
 	 * @param twilioHelper
@@ -65,14 +65,14 @@ public class TwilioStatusBatchConfig {
 	 */
 	public TwilioStatusBatchConfig(JobRepository jobRepository, JobExplorer jobExplorer, JobLauncher jobLauncher,
 			PlatformTransactionManager transactionManager,
-			NotificationConfig notificationConfig, NotificationRepository notificationRepository,
+			NotificationProperties notificationProperties, NotificationRepository notificationRepository,
 			TwilioHelper twilioHelper) {
 		log.debug("Creating Twilio update job beans");
 		this.jobRepository = jobRepository;
 		this.jobExplorer = jobExplorer;
 		this.jobLauncher = jobLauncher;
 		this.transactionManager = transactionManager;
-		this.notificationConfig = notificationConfig;
+		this.notificationProperties = notificationProperties;
 		this.notificationRepository = notificationRepository;
 		this.twilioHelper = twilioHelper;
 	}
@@ -126,7 +126,7 @@ public class TwilioStatusBatchConfig {
 
 	private Step twilioUpdateStep(ItemReader<Notification> reader) {
 		return new StepBuilder("processTwilioNotificationsStep", jobRepository)
-				.<Notification, Notification> chunk(notificationConfig.getChunkSize(), transactionManager)
+				.<Notification, Notification> chunk(notificationProperties.getChunkSize(), transactionManager)
 				.reader(reader)
 				.writer(twilioStatusItemWriter())
 				.build();
