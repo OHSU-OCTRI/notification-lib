@@ -90,7 +90,7 @@ public class NotificationController extends AbstractEntityController<Notificatio
 			notification.setNotificationMetadataView(handler.getViewer().getMetadataView(notification));
 		}
 		model.put("editingEnabled", model.get("isSuper"));
-		ViewUtils.addPageScript(model, "vendor.js");
+		ViewUtils.addPageScript(model, "notificationlib-vendor.js");
 		ViewUtils.addPageScript(model, "delivery-details.js");
 		return template;
 	}

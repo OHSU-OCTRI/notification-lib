@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial implementation of the library (CIS-3203)
 - Add a dedicated Task Scheduler for the batch jobs (CIS-3347)
 - README documentation (CIS-3349)
+- Add Vue infrastructure and delivery-details.js (CIS-3348)
 
 ### Changed
 
