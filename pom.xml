@@ -43,7 +43,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>17</java.version>
-		<common_lib.version>1.7.0</common_lib.version>
+		<common_lib.version>1.7.1</common_lib.version>
 		<messaginglib.version>0.1.0</messaginglib.version>
 		<node.version>v22.15.0</node.version>
 	</properties>
