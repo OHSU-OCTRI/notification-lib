@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0]
+
 ### Added
 
 - Initial implementation of the library (CIS-3203)
@@ -18,4 +20,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Use Spring Boot Autoconfiguration (CIS-3347)
 
-[unreleased]: https://github.com/OHSU-OCTRI/notification-lib/
+[unreleased]: https://github.com/OHSU-OCTRI/notification-lib/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/OHSU-OCTRI/notification-lib/compare/0978166a3070804e7c1e88028e61d513a1889c02...v0.1.0
