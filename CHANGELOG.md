@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.0] - 2025-09-12
+### Fixed
 
-## [0.1.0]
+- Support default date formatting in Notification form
+- Add defaults to NotificationProperties as documented in the README
+- Update the README to clarify the desired Spring Batch property settings
+
+## [0.1.0] - 2025-09-12
 
 ### Added
 
@@ -22,6 +26,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Use Spring Boot Autoconfiguration (CIS-3347)
 
-[unreleased]: https://github.com/OHSU-OCTRI/notification-lib/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/OHSU-OCTRI/notification-lib/compare/v0.1.0...v0.1.0
-[0.1.0]: https://github.com/OHSU-OCTRI/notification-lib/compare/0978166a3070804e7c1e88028e61d513a1889c02...v0.1.0
+[unreleased]: https://source.ohsu.edu/OCTRI-Apps/compass/compare/v0.1.0...HEAD
+[0.1.0]: https://source.ohsu.edu/OCTRI-Apps/compass/tree/v0.1.0

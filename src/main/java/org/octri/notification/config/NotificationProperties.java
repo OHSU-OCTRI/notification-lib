@@ -10,15 +10,15 @@ public class NotificationProperties {
 
 	private Boolean enabled;
 
-	private Integer chunkSize;
+	private Integer chunkSize = 50;
 
 	private String email;
 
 	private String smsNumber;
 
-	private String schedule;
+	private String schedule = "@yearly";
 
-	private String twilioUpdateSchedule;
+	private String twilioUpdateSchedule = "@yearly";
 
 	/**
 	 * A static getter for any custom logic relying on this flag in the application. This is available even if this bean
@@ -29,6 +29,9 @@ public class NotificationProperties {
 	public static boolean getNotificationsEnabled() {
 		String enabled = System.getProperty("octri.notifications.enabled",
 				System.getenv("OCTRI_NOTIFICATIONS_ENABLED"));
+		if (enabled == null) {
+			enabled = "true";
+		}
 		return "true".equalsIgnoreCase(enabled);
 	}
 
