@@ -3,7 +3,7 @@
 	<groupId>org.octri.notification</groupId>
 	<artifactId>notification_lib</artifactId>
 	<packaging>jar</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.1-SNAPSHOT</version>
 	<name>notification_lib</name>
 	<description>OCTRI Notification Library</description>
 	<url>https://github.com/OHSU-OCTRI/notification-lib</url>

@@ -40,6 +40,13 @@ Your application should configure the following properties for your use case:
 
 This package depends on the messaging library, which has its own set of configurable properties documented [here](https://github.com/OHSU-OCTRI/messaging-lib).
 
+Finally, your application should set these Spring Batch properties to prevent the database tables from being initialized and to prevent batch jobs from running on application restart. This is undesirable behavior for notifications, since they typically run daily at a specific time.
+
+```
+spring.batch.jdbc.initialize-schema=never
+spring.batch.job.enabled=false
+```
+
 ### Domain
 
 Notifications can be assigned to an entity that implements the `Recipient` interface provided by the Notification Library. For most applications this will be a Participant. For example:

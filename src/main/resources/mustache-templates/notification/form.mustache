@@ -4,8 +4,9 @@
     <label for="date_scheduled" class="form-label required-field">{{#i18n}}notification.dateScheduled.label{{/i18n}}</label>
     <div class="input-group date-control">
         <input type="text" class="form-control" id="date_scheduled" name="dateScheduled" value="{{#dateScheduled}}{{.}}{{/dateScheduled}}"
-            required pattern="{{octriViewConfig.datePatternRegex}}" placeholder="{{octriViewConfig.datePatternPlaceholder}}" autocomplete="off"
-            data-provide="datepicker" data-date-format="{{octriViewConfig.datePattern}}">
+            required pattern="{{#octriViewConfig}}{{datePatternRegex}}{{/octriViewConfig}}{{^octriViewConfig}}[0-9]{4}-[0-9]{2}-[0-9]{2}{{/octriViewConfig}}"
+            placeholder="{{#octriViewConfig}}{{datePatternPlaceholder}}{{/octriViewConfig}}{{^octriViewConfig}}yyyy-mm-dd{{/octriViewConfig}}" autocomplete="off"
+            data-provide="datepicker" data-date-format="{{#octriViewConfig}}{{datePattern}}{{/octriViewConfig}}{{^octriViewConfig}}yyyy-MM-dd{{/octriViewConfig}}">
         <span class="input-group-text rounded-end"><i class="far fa-calendar-alt"></i></span>
         <div class="invalid-feedback">{{#i18n}}notification.dateScheduled.validationMessage{{/i18n}}</div>
     </div>
