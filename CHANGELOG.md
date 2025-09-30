@@ -7,9 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.1] - 2025-09-19
+### Added
 
-## [0.1.1]
+- Added a createAll method to the NotificationService
+
+### Fixed
+
+- Add missed translation to fixtures
+- Remove reference to non-existent Mustache component
+
+### Upgrading
+
+- Add the translation message key `notificationList.filter.all` from [fixture__notification_translations.sql](./setup/migrations/fixture__notification_translations.sql)
+
+## [0.1.1] - 2025-09-19
 
 ### Fixed
 
@@ -31,6 +42,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use Spring Boot Autoconfiguration (CIS-3347)
 
 [unreleased]: https://github.com/OHSU-OCTRI/notification-lib/compare/v0.1.1...HEAD
-[0.1.1]: https://github.com/OHSU-OCTRI/notification-lib/compare/v0.1.1...v0.1.1
 [0.1.1]: https://source.ohsu.edu/OCTRI-Apps/compass/compare/v0.1.0...v0.1.1
 [0.1.0]: https://source.ohsu.edu/OCTRI-Apps/compass/tree/v0.1.0

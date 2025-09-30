@@ -12,6 +12,7 @@ VALUES
 (0, NOW(), NOW(), 'en-US', 'notification.recipient.validationMessage', 'Value must be present', 'Validation message for Notification recipient field', 0),
 (0, NOW(), NOW(), 'en-US', 'notification.notificationStatus.validationMessage', 'Value must be present', 'Validation message for Notification status field', 0),
 (0, NOW(), NOW(), 'en-US', 'notification.notificationType.validationMessage', 'Value must be present', 'Validation message for Notification type field', 0),
+(0, NOW(), NOW(), 'en-US', 'notificationList.filter.all', 'All', 'Name of filter on Notification list page to show all notifications', 0),
 (0, NOW(), NOW(), 'en-US', 'notificationStatusMetadata.validationFailed.label', 'Validation Failed', 'Label for heading indicating validation failed', 0),
 (0, NOW(), NOW(), 'en-US', 'notificationStatusMetadata.validationFailed.reason.label', 'Invalid Reason', 'Label for Invalid reason', 0),
 (0, NOW(), NOW(), 'en-US', 'notificationStatusMetadata.sendSuccessful.label', 'Sent', 'Label indicating send was successful', 0),
