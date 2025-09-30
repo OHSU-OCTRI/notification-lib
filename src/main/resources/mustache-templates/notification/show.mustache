@@ -60,7 +60,12 @@
                 </div>
             </div>
         {{/statusMetadata}}
-        {{>components/show_links_editing_enabled}}
+        <a href="{{req.contextPath}}{{baseRoute}}/" class="btn btn-link"><i class="fas fa-list"></i> List</a>
+        {{#editingEnabled}}
+        <a href="{{req.contextPath}}{{baseRoute}}/{{id}}/edit" class="btn btn-link"><i class="fas fa-edit"></i> Edit</a>
+        <a href="{{req.contextPath}}{{baseRoute}}/{{id}}/delete" onclick="return confirm('Delete this item?');"
+        class="btn btn-link text-danger"><i class="fas fa-minus-square"></i> Delete</a> 
+        {{/editingEnabled}}
         {{/entity}}
     </div>
 </div>
