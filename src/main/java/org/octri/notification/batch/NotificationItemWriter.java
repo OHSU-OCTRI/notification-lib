@@ -2,7 +2,9 @@ package org.octri.notification.batch;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -64,7 +66,8 @@ public class NotificationItemWriter implements ItemWriter<Notification> {
 										notification.getNotificationType()));
 					}
 					var dispatcher = handler.getDispatcher();
-					var dispatchResult = dispatcher.handleDispatch(notification);
+					var dispatchResults = dispatcher.handleDispatches(notification);
+					createAdditionalNotificationsIfNeeded(notification, dispatchResults);
 					if (notification
 							.getNotificationMetadata(
 									handler.getMetadataClass()) instanceof ReminderDayProgressionTracker) {
@@ -77,8 +80,8 @@ public class NotificationItemWriter implements ItemWriter<Notification> {
 					}
 					notification = updateDispatchedNotification(notification,
 							notificationStatusMetadata.validationResult(),
-							dispatchResult);
-					if (dispatchResult.successful()) {
+							dispatchResults.get(0));
+					if (dispatchResults.get(0).successful()) {
 						dispatchedKeys.add(dispatchKey);
 					}
 				}
@@ -87,6 +90,34 @@ public class NotificationItemWriter implements ItemWriter<Notification> {
 			}
 
 			notificationRepository.save(notification);
+		}
+	}
+
+	/**
+	 * If there is more than one dispatch result, create additional Notifications to match
+	 * 
+	 * @param notification
+	 * @param dispatchResults
+	 */
+	private void createAdditionalNotificationsIfNeeded(Notification notification,
+			List<DispatchResult> dispatchResults) {
+
+		if (dispatchResults.size() > 1) {
+			List<Notification> newNotifications = new ArrayList<>();
+			for (int i = 1; i < dispatchResults.size(); i++) {
+				DispatchResult dispatchResult = dispatchResults.get(i);
+				Notification copy = new Notification();
+				copy.setDateScheduled(notification.getDateScheduled());
+				copy.setDateTimeProcessed(notification.getDateTimeProcessed());
+				copy.setNotificationMetadata(notification.getNotificationMetadata());
+				copy.setNotificationStatus(notification.getNotificationStatus());
+				copy.setNotificationStatusMetadata(notification.getNotificationStatusMetadata());
+				copy.setNotificationType(notification.getNotificationType());
+				copy.setRecipientUuid(notification.getRecipientUuid());
+				copy = updateDispatchedNotification(copy, copy.getStatusMetadata().validationResult(), dispatchResult);
+				newNotifications.add(copy);
+			}
+			notificationRepository.saveAll(newNotifications);
 		}
 	}
 

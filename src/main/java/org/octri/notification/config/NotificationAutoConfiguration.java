@@ -7,8 +7,6 @@ import org.octri.notification.registry.NotificationStatusRegistry;
 import org.octri.notification.registry.NotificationTypeRegistry;
 import org.octri.notification.repository.NotificationRepository;
 import org.octri.notification.service.NotificationService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -27,8 +25,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages = "org.octri.notification.repository")
 @Import({ NotificationBatchConfig.class, TwilioStatusBatchConfig.class, NotificationController.class })
 public class NotificationAutoConfiguration {
-
-	private static final Logger log = LoggerFactory.getLogger(NotificationAutoConfiguration.class);
 
 	/**
 	 * 
