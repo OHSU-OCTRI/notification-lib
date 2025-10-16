@@ -45,7 +45,8 @@ public abstract class AbstractNotificationDispatcher implements NotificationDisp
 	 * @return the generated message content
 	 */
 	public String generateMessageContent(String template, Map<String, String> values) {
-		return mustacheCompiler.compile(template).execute(values);
+		Mustache.Compiler noEscapeCompiler = mustacheCompiler.escapeHTML(false);
+		return noEscapeCompiler.compile(template).execute(values);
 	}
 
 	/**

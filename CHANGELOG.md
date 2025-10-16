@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Publish -SNAPSHOT releases to Maven Central. (CIS-3368)
 - Provide recipient info in Notification status details on list page (COMPASS-160)
+- Avoid escaping HTML when generating message content
 
 ## [0.2.0] - 2025-09-30
 
