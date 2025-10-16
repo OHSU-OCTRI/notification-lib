@@ -43,7 +43,7 @@
                     {{/validationResult}}
                     {{#dispatchResult}}
                         {{#successful}}
-                            No errors
+                            {{#recipient}}Recipient: {{.}}{{/recipient}}
                         {{/successful}}
                         {{^successful}}
                             Send failed: {{#errorMessage}}{{.}}{{/errorMessage}}
