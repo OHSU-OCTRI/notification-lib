@@ -8,10 +8,10 @@ import org.octri.notification.registry.NotificationStatusRegistry;
 /**
  * The extensible interface defining the NotificationStatus of a Notification. Applications can use the
  * {@link NotificationStatusRegistry} to add or remove statuses or override properties. This library expects a status
- * with the name 'SCHEDULED' in the {@link NotificationItemReader} and statuses with the name 'SENT' and 'INACTIVE' in
- * the {@link NotificationItemWriter}. These beans would need to be overridden if an application removes these status
- * names. Additionally, the batch job that checks Twilio for the final disposition of a text uses the 'SENT' status in
- * the NotificationRepository.
+ * with the name 'SCHEDULED' in the {@link NotificationItemReader} and statuses with the name 'SENT', 'INVALID', and
+ * 'FAILED' in the {@link NotificationItemWriter}. These beans would need to be overridden if an application removes
+ * these status names. Additionally, the batch job that checks Twilio for the final disposition of a text uses the
+ * 'SENT' status in the NotificationRepository.
  */
 public interface NotificationStatus extends Labelled {
 

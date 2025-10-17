@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Breaking: The default NotificationStatus 'INACTIVE' has been replaced by 'INVALID' and 'FAILED'.
+
+### Upgrading
+
+- Applications can no longer refer to the enum value DefaultNotificationStatus.INACTIVE.
+- Applications that have 'INACTIVE' notifications will see these appear in the 'All' tab, but they will no longer have their own filter. Developers may want to update older Notifications to match the new convention. In the notificationStatusMetadata field, those with a failed validation should be 'INVALID' and those with a failed dispatch should be 'FAILED'.
+
 ## [0.3.0] - 2025-10-16
 
 ### Added

@@ -80,14 +80,14 @@ public class NotificationItemWriterTest {
 		var invalidDispatch = new DispatchResult(false, null, null, null, null);
 		notification = NotificationItemWriter.updateDispatchedNotification(new Notification(),
 				new ValidationResult(true, null), invalidDispatch);
-		assertTrue(notification.getNotificationStatus().equals(DefaultNotificationStatus.INACTIVE),
-				"Notification status is updated to INACTIVE");
+		assertTrue(notification.getNotificationStatus().equals(DefaultNotificationStatus.FAILED),
+				"Notification status is updated to FAILED");
 	}
 
 	@Test
 	void testUpdateInvalidNotification() {
 		var notification = NotificationItemWriter.updateInvalidNotification(new Notification());
-		assertTrue(notification.getNotificationStatus().equals(DefaultNotificationStatus.INACTIVE),
-				"Notification status is updated to INACTIVE");
+		assertTrue(notification.getNotificationStatus().equals(DefaultNotificationStatus.INVALID),
+				"Notification status is updated to INVALID");
 	}
 }

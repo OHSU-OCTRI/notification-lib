@@ -155,13 +155,13 @@ A Spring Batch job is configured to read, validate, and send Notifications that 
 
 ### Twilio Status Batch Job
 
-If Twilio is configured, there is a Spring Batch job that will periodically check the status of messages and record the final disposition in the `NotificationStatusMetadata` field of the Notification. If a failure occurs, a Notification may transition from SENT to INACTIVE.
+If Twilio is configured, there is a Spring Batch job that will periodically check the status of messages and record the final disposition in the `NotificationStatusMetadata` field of the Notification. If a failure occurs, a Notification may transition from SENT to FAILED.
 
 ## Extension Points
 
 ### Changes to Notification Status
 
-This library has 3 default statuses for Notifications: SCHEDULED, INACTIVE, and SENT, but it provides a NotificationStatusRegistry bean that can be used to override these statuses. Applications should take care to also override any functionality in this library that relies on the default statuses for behavior. If you simply want to override the "label" for the status without changing the names or any functionality, you can follow this example that overrides the SCHEDULED status with the label "Queued":
+This library has 4 default statuses for Notifications: SCHEDULED, INVALID, FAILED, and SENT, but it provides a NotificationStatusRegistry bean that can be used to override these statuses. Applications should take care to also override any functionality in this library that relies on the default statuses for behavior. If you simply want to override the "label" for the status without changing the names or any functionality, you can follow this example that overrides the SCHEDULED status with the label "Queued":
 
 ```java
 notificationStatusRegistry.register(new NotificationStatus() {

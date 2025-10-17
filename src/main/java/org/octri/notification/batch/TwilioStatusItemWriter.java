@@ -49,7 +49,7 @@ public class TwilioStatusItemWriter implements ItemWriter<Notification> {
 			log.debug("Old status: {} current status: {}", oldState.getStatus(), updatedState.getStatus());
 			if (!oldState.getStatus().equals(updatedState.getStatus())) {
 				if (!twilioHelper.isSuccessResponse(updatedState)) {
-					notification.setNotificationStatus(DefaultNotificationStatus.INACTIVE);
+					notification.setNotificationStatus(DefaultNotificationStatus.FAILED);
 				}
 
 				var updatedDeliveryDetails = twilioHelper.serializeMessageToJson(updatedState);
