@@ -10,9 +10,13 @@ public enum DefaultNotificationStatus implements NotificationStatus {
 	 */
 	SCHEDULED("Scheduled", false),
 	/**
-	 * Notification was no longer valid or failed to send
+	 * Notification was no longer valid
 	 */
-	INACTIVE("Inactive", true),
+	INVALID("Invalid", true),
+	/**
+	 * Notification failed delivery
+	 */
+	FAILED("Failed", true),
 	/**
 	 * Notification was sent (but not necessarily delivered)
 	 */

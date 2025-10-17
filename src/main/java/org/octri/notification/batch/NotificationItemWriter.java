@@ -157,7 +157,7 @@ public class NotificationItemWriter implements ItemWriter<Notification> {
 
 	static Notification updateInvalidNotification(Notification notification) {
 		logger.debug(String.format("Notification %s marked invalid", notification.getId()));
-		notification.setNotificationStatus(DefaultNotificationStatus.INACTIVE);
+		notification.setNotificationStatus(DefaultNotificationStatus.INVALID);
 		return notification;
 	}
 
@@ -171,7 +171,7 @@ public class NotificationItemWriter implements ItemWriter<Notification> {
 			notification.setNotificationStatus(DefaultNotificationStatus.SENT);
 			logger.debug(String.format("Notification %s sent successfully", notification.getId()));
 		} else {
-			notification.setNotificationStatus(DefaultNotificationStatus.INACTIVE);
+			notification.setNotificationStatus(DefaultNotificationStatus.FAILED);
 			logger.error(String.format("Notification %s failed to send: %s", notification.getId(),
 					dispatchResult.errorMessage()));
 		}

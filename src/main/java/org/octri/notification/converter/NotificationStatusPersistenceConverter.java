@@ -33,6 +33,38 @@ public class NotificationStatusPersistenceConverter implements AttributeConverte
 		if (dbData == null) {
 			return null;
 		}
-		return notificationStatusRegistry.getStatusByName(dbData).orElseThrow();
+		return notificationStatusRegistry.getStatusByName(dbData).orElse(handleUnknownStatus(dbData));
+	}
+
+	/**
+	 * This allows statuses in the database to exist that are not registered (e.g., the old INACTIVE status). They
+	 * will appear in the Notification list under "All" but will not have their own filter.
+	 * 
+	 * @param dbData
+	 * @return a NotificationStatus implementation that returns the dbData as its name and label
+	 */
+	private NotificationStatus handleUnknownStatus(String dbData) {
+		return new NotificationStatus() {
+
+			@Override
+			public String name() {
+				return dbData;
+			}
+
+			@Override
+			public int ordinal() {
+				return 0;
+			}
+
+			@Override
+			public boolean descending() {
+				return false;
+			}
+
+			@Override
+			public String getLabel() {
+				return dbData;
+			}
+		};
 	}
 }
