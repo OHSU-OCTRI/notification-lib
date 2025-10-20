@@ -16,6 +16,8 @@ import org.octri.notification.registry.NotificationStatusRegistry;
 import org.octri.notification.registry.NotificationTypeRegistry;
 import org.octri.notification.repository.NotificationRepository;
 import org.octri.notification.view.NotificationStatusSelectOption;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -31,6 +33,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/admin/notification")
 public class NotificationController extends AbstractEntityController<Notification, NotificationRepository> {
+
+	private static final Logger logger = LoggerFactory.getLogger(NotificationController.class);
 
 	private final NotificationRepository repository;
 	private final IdentifiableEntityFinder<?> recipientFinder;
@@ -62,13 +66,25 @@ public class NotificationController extends AbstractEntityController<Notificatio
 		var template = super.list(model);
 		@SuppressWarnings("unchecked")
 		Iterable<Notification> notifications = (Iterable<Notification>) model.get("entity_list");
+		var viewerMap = notificationTypeRegistry.getRegisteredTypes().stream()
+				.collect(Collectors.toMap(
+						t -> t,
+						t -> notificationTypeRegistry.getHandler(t).getViewer()));
+		// Prepare viewers
+		for (var type : viewerMap.keySet()) {
+			var viewer = viewerMap.get(type);
+			var typeNotifications = StreamSupport.stream(notifications.spliterator(), false)
+					.filter(n -> n.getNotificationType().equals(type))
+					.collect(Collectors.toList());
+			viewer.prepare(typeNotifications);
+		}
 		List<Notification> notificationViews = StreamSupport
 				.stream(notifications.spliterator(), false)
 				.map(n -> {
-					var handler = notificationTypeRegistry.getHandler(n.getNotificationType());
-					if (handler != null) {
-						n.setNotificationRecipientView(handler.getViewer().getRecipientView(n));
-						n.setNotificationMetadataView(handler.getViewer().getMetadataView(n));
+					var viewer = viewerMap.get(n.getNotificationType());
+					if (viewer != null) {
+						n.setNotificationRecipientView(viewer.getRecipientView(n));
+						n.setNotificationMetadataView(viewer.getMetadataView(n));
 					}
 					return n;
 				}).collect(Collectors.toList());
