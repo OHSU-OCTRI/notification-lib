@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Potentially Breaking: Redesigned NotificationViewer interface to encourage thread safety. This only impacts applications that used the prepare method in 1.0.0. This has been replaced by prepareCache. 
+- Updated documentation for NotificationViewer
+
 ## [1.0.0] - 2025-10-21
 
 ### Added

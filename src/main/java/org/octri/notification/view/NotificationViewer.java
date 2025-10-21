@@ -8,13 +8,17 @@ import org.octri.notification.domain.Notification;
 public interface NotificationViewer {
 
 	/**
-	 * Applications that need to fetch data for each notification can prefetch and cache to optimize performance.
+	 * Applications that need to fetch data for each notification can prefetch and cache in a ThreadLocal to optimize
+	 * performance.
 	 * 
 	 * @param notifications
 	 *            the list of notifications that will be viewed
+	 * @return an AutoCloseable that will clear the cache when closed; default has no cache and returns a no-op
+	 *         AutoCloseable
 	 */
-	default void prepare(Iterable<Notification> notifications) {
-		// default no-op for simple viewers
+	default AutoCloseable prepareCache(Iterable<Notification> notifications) {
+		return () -> {
+		};
 	}
 
 	/**

@@ -67,28 +67,35 @@ public class NotificationController extends AbstractEntityController<Notificatio
 		var template = super.list(model);
 		@SuppressWarnings("unchecked")
 		Iterable<Notification> notifications = (Iterable<Notification>) model.get("entity_list");
+		Map<String, List<Notification>> notificationsByType = StreamSupport
+				.stream(notifications.spliterator(), false)
+				.collect(Collectors.groupingBy(Notification::getNotificationType));
+
 		Map<String, NotificationViewer> viewerByType = notificationTypeRegistry.getRegisteredTypes().stream()
 				.collect(Collectors.toMap(
 						t -> t,
 						t -> notificationTypeRegistry.getHandler(t).getViewer()));
-		// Prepare viewers
-		for (var type : viewerByType.keySet()) {
-			var viewer = viewerByType.get(type);
-			var typeNotifications = StreamSupport.stream(notifications.spliterator(), false)
-					.filter(n -> n.getNotificationType().equals(type))
-					.toList();
-			viewer.prepare(typeNotifications);
-		}
-		List<Notification> notificationViews = StreamSupport
-				.stream(notifications.spliterator(), false)
-				.map(n -> {
-					var viewer = viewerByType.get(n.getNotificationType());
-					if (viewer != null) {
+		List<Notification> notificationViews = new ArrayList<>();
+
+		for (var type : notificationsByType.keySet()) {
+			NotificationViewer viewer = viewerByType.get(type);
+			List<Notification> typeNotifications = notificationsByType.get(type);
+
+			if (viewer != null) {
+				try (var ignored = viewer.prepareCache(typeNotifications)) {
+					for (var n : typeNotifications) {
 						n.setNotificationRecipientView(viewer.getRecipientView(n));
 						n.setNotificationMetadataView(viewer.getMetadataView(n));
+						notificationViews.add(n);
 					}
-					return n;
-				}).toList();
+				} catch (Exception e) {
+					logger.error("Error closing cache for viewer of type {}", type, e);
+				}
+			} else {
+				// No viewer found — just add as is
+				notificationViews.addAll(typeNotifications);
+			}
+		}
 		model.put("entity_list", notificationViews);
 		model.put("notificationStatuses", notificationStatusRegistry.getStatuses());
 		ViewUtils.addPageScript(model, "table-filtering.js");
@@ -103,8 +110,13 @@ public class NotificationController extends AbstractEntityController<Notificatio
 		Notification notification = (Notification) model.get("entity");
 		var handler = notificationTypeRegistry.getHandler(notification.getNotificationType());
 		if (handler != null) {
-			notification.setNotificationRecipientView(handler.getViewer().getRecipientView(notification));
-			notification.setNotificationMetadataView(handler.getViewer().getMetadataView(notification));
+			NotificationViewer viewer = handler.getViewer();
+			try (var ignored = viewer.prepareCache(List.of(notification))) {
+				notification.setNotificationRecipientView(handler.getViewer().getRecipientView(notification));
+				notification.setNotificationMetadataView(handler.getViewer().getMetadataView(notification));
+			} catch (Exception e) {
+				logger.error("Error closing cache for viewer of type {}", notification.getNotificationType(), e);
+			}
 		}
 		model.put("editingEnabled", model.get("isSuper"));
 		ViewUtils.addPageScript(model, "notificationlib-vendor.js");
