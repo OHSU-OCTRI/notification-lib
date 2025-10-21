@@ -8,6 +8,16 @@ import org.octri.notification.domain.Notification;
 public interface NotificationViewer {
 
 	/**
+	 * Applications that need to fetch data for each notification can prefetch and cache to optimize performance.
+	 * 
+	 * @param notifications
+	 *            the list of notifications that will be viewed
+	 */
+	default void prepare(Iterable<Notification> notifications) {
+		// default no-op for simple viewers
+	}
+
+	/**
 	 * 
 	 * @param notification
 	 *            the notification whose recipient is to be viewed

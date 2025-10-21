@@ -61,6 +61,7 @@ public class NotificationService {
 	 * the batch job.
 	 * 
 	 * @param notifications
+	 *            the notifications to save
 	 * @return the persisted notifications
 	 * @throws Exception
 	 *             thrown by the JobLauncher if the batch job is triggered

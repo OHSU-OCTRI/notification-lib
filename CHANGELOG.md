@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added the method 'prepare' to NotificationViewer to allow applications to optimize performance. Default does nothing.
+
 ### Changed
 
 - Breaking: The default NotificationStatus 'INACTIVE' has been replaced by 'INVALID' and 'FAILED'.
