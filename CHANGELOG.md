@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2025-10-22
+
 ### Changed
 
 - Potentially Breaking: Redesigned NotificationViewer interface to encourage thread safety. This only impacts applications that used the prepare method in 1.0.0. This has been replaced by prepareCache. 
@@ -75,7 +77,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Use Spring Boot Autoconfiguration (CIS-3347)
 
-[unreleased]: https://github.com/OHSU-OCTRI/notification-lib/compare/v1.0.0...HEAD
+[unreleased]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/OHSU-OCTRI/notification-lib/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/OHSU-OCTRI/notification-lib/compare/v0.3.0...v1.0.0
 [0.3.0]: https://github.com/OHSU-OCTRI/notification-lib/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/OHSU-OCTRI/notification-lib/compare/v0.1.1...v0.2.0
