@@ -171,6 +171,91 @@ This is how it will manifest in the Recipient and Info columns of the list page:
 
 ![](images/notification-list.png)
 
+Because the methods `getRecipientView` and `getMetadataView` will be called for every Notification, applications may want to set up a ThreadLocal cache to optimize these queries on the full list first. In this case, applications can override the `NotificationViewer` default method `prepareCache`:
+
+```
+	/**
+	 * Applications that need to fetch data for each notification can prefetch and cache in a ThreadLocal to optimize
+	 * performance.
+	 * 
+	 * @param notifications
+	 *            the list of notifications that will be viewed
+	 * @return an AutoCloseable that will clear the cache when closed; default has no cache and returns a no-op
+	 *         AutoCloseable
+	 */
+	default AutoCloseable prepareCache(Iterable<Notification> notifications) {
+		return () -> {
+		};
+	}
+```
+
+This is how the implementation above would be rewritten to use a cache:
+
+```
+public class SurveyReminderViewer {
+
+	private final ParticipantService participantService;
+	private final ApplicationLinkBuilder applicationLinkBuilder;
+	private final AssignmentService assignmentService;
+	private final ThreadLocal<Map<String, Participant>> cachedParticipants = new ThreadLocal<>();
+	private final ThreadLocal<Map<Long, Assignment>> cachedAssignments = new ThreadLocal<>();
+
+	public SurveyReminderViewer(ParticipantService participantService, ApplicationLinkBuilder applicationLinkBuilder,
+			AssignmentService assignmentService) {
+		this.participantService = participantService;
+		this.assignmentService = assignmentService;
+	}
+
+	@Override
+	public AutoCloseable prepareCache(Iterable<Notification> notifications) {
+		var recipientUuids = StreamSupport
+				.stream(notifications.spliterator(), false)
+				.map(n -> n.getRecipientUuid())
+				.distinct().toList();
+		var participants = StreamSupport
+				.stream(participantService.findAllByUuidIn(recipientUuids).spliterator(), false)
+				.collect(Collectors.toMap(Participant::getUuid, Function.identity()));
+		cachedParticipants.set(participants);
+		var assignmentIds = StreamSupport
+				.stream(notifications.spliterator(), false)
+				.map(n -> n.getNotificationMetadata(SurveyReminderMetadata.class)
+						.getAssignmentId())
+				.distinct().toList();
+		Map<Long, Assignment> cache = StreamSupport
+				.stream(assignmentService.findAllById(assignmentIds).spliterator(), false)
+				.collect(Collectors.toMap(Assignment::getId, Function.identity()));
+		cachedAssignments.set(cache);
+
+		return () -> {
+			cachedParticipants.remove();
+			cachedAssignments.remove();
+		};
+	}
+
+	@Override
+	public String getRecipientView(Notification notification) {
+		var cache = cachedParticipants.get();
+		var participant = cache.get(notification.getRecipientUuid());
+		return participant != null
+				? String.format("<a href='%s/admin/participant/%s'>%s</a> (%s)", applicationLinkBuilder.getAppUrl(),
+						participant.getId(), participant.getLabel(), participant.getParticipantType().getLabel())
+				: "Participant not found";
+	}
+
+	@Override
+	public String getMetadataView(Notification notification) {
+		SurveyReminderMetadata metadata = notification.getNotificationMetadata(SurveyReminderMetadata.class);
+		Map<Long, Assignment> cache = cachedAssignments.get();
+		var assignment = cache.get(metadata.getAssignmentId());
+		return String.format("%s (Reminder %s)",
+				(assignment != null) ? assignment.getSurveyList().getName()
+						: "Assignment not found",
+				metadata.getCurrentIndex() + 1);
+	}
+
+}
+```
+
 ## Register the Notification Type
 
 With all the necessary classes defined, use the [`NotificationTypeRegistry`](src/main/java/org/octri/notification/registry/NotificationTypeRegistry.java) to handle the new custom type.
