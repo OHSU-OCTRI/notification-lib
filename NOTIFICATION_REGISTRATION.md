@@ -52,8 +52,8 @@ public class ClientWelcomeDispatcher implements NotificationDispatcher {
 	public DispatchResult handleDispatch(Notification notification) {
 		var participant = (Participant) notification.getRecipient();
 		try {
-			var deliveryDetails = messageDeliveryService.sendEmail(notificationProperties.getEmail(), 
-                participant.getEmail(),
+			var deliveryDetails = messageDeliveryService.sendEmail(notificationProperties.getEmail(),
+				participant.getEmail(),
 				"Message Subject",
 				"Message Content");
 			return new DispatchResult(true, messageContent, recipient,
@@ -173,11 +173,11 @@ This is how it will manifest in the Recipient and Info columns of the list page:
 
 Because the methods `getRecipientView` and `getMetadataView` will be called for every Notification, applications may want to set up a ThreadLocal cache to optimize these queries on the full list first. In this case, applications can override the `NotificationViewer` default method `prepareCache`:
 
-```
+```java
 	/**
 	 * Applications that need to fetch data for each notification can prefetch and cache in a ThreadLocal to optimize
 	 * performance.
-	 * 
+	 *
 	 * @param notifications
 	 *            the list of notifications that will be viewed
 	 * @return an AutoCloseable that will clear the cache when closed; default has no cache and returns a no-op
@@ -191,7 +191,7 @@ Because the methods `getRecipientView` and `getMetadataView` will be called for 
 
 This is how the implementation above would be rewritten to use a cache:
 
-```
+```java
 public class SurveyReminderViewer {
 
 	private final ParticipantService participantService;
@@ -258,7 +258,45 @@ public class SurveyReminderViewer {
 
 ## Register the Notification Type
 
-With all the necessary classes defined, use the [`NotificationTypeRegistry`](src/main/java/org/octri/notification/registry/NotificationTypeRegistry.java) to handle the new custom type.
+Once all of the necessary classes have been defined for your new notification, it needs to be registered wih the [`NotificationTypeRegistry`](src/main/java/org/octri/notification/registry/NotificationTypeRegistry.java). Notifications may be manually registered with the [`NotificationTypeRegistry`](src/main/java/org/octri/notification/registry/NotificationTypeRegistry.java) or registered automatically using the [`NotificationTypeProvider`](src/main/java/org/octri/notification/registry/NotificationTypeProvider.java) interface. While manual registration may be appropriate for simple applications, automatic registration simplifies the addition of new notification types and is recommended for most cases.
+
+### Automatic Registration
+
+[`NotificationTypeProvider`](src/main/java/org/octri/notification/registry/NotificationTypeProvider.java) is a convenience interface that allows notification types to be automatically discovered and registered with the type registry. Implementing classes return the objects needed to process a notification type. Most methods have default implementations, so a minimal implementation only needs to provide a unique string to identify the notification and a `NotificationDispatcher`.
+
+```java
+public interface NotificationTypeProvider {
+
+	String getNotificationType();
+
+	default ProcessingMode getProcessingMode() {
+		return ProcessingMode.SCHEDULED;
+	}
+
+	default Class<? extends NotificationMetadata> getNotificationMetadata() {
+		return EmptyMetadata.class;
+	}
+
+	default NotificationValidator getNotificationValidator() {
+		return NotificationValidator.NOOP;
+	};
+
+	NotificationDispatcher getNotificationDispatcher();
+
+	default NotificationViewer getNotificationViewer() {
+		return new EmptyMetadataViewer();
+	}
+
+}
+```
+
+Concrete implementations of `NotificationTypeProvider` can be `@Component` classes that get the needed dependencies through constructor injection.
+
+On application startup, [the library's autoconfiguration](src/main/java/org/octri/notification/config/NotificationAutoConfiguration.java) finds all of the `NotificationTypeProvider` beans in the application context and registers their notifications with the `NotificationTypeRegistry`.
+
+### Manual Registration
+
+To manually register a new notification type, use the [`NotificationTypeRegistry`](src/main/java/org/octri/notification/registry/NotificationTypeRegistry.java) directly.
 
 ```java
 @Component
