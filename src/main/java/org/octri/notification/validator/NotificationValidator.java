@@ -4,9 +4,13 @@ import org.octri.notification.domain.Notification;
 import org.octri.notification.domain.ValidationResult;
 
 /**
- * Interface for a component that can validate whether a Notification should be sent
+ * Functional interface for a component that can validate whether a Notification should be sent. Provides a NOOP
+ * validator that always returns a successful validation result.
  */
+@FunctionalInterface
 public interface NotificationValidator {
+
+	public static final NotificationValidator NOOP = notification -> new ValidationResult(true, null);
 
 	/**
 	 * 
