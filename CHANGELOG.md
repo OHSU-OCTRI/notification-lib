@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added a Noop NotificationValidator lambda (CIS-3588)
+
+### Changed
+
+- Declared NotificationValidator a functional interface for compile-time checking (CIS-3589)
+
 ## [2.0.0] - 2025-10-22
 
 ### Changed
