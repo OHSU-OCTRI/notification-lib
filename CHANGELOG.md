@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-03-04
+
 ### Added
 
 - Added a Noop NotificationValidator lambda (CIS-3588)
@@ -85,7 +87,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Use Spring Boot Autoconfiguration (CIS-3347)
 
-[unreleased]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.0.0...HEAD
+[unreleased]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/OHSU-OCTRI/notification-lib/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/OHSU-OCTRI/notification-lib/compare/v0.3.0...v1.0.0
 [0.3.0]: https://github.com/OHSU-OCTRI/notification-lib/compare/v0.2.0...v0.3.0
