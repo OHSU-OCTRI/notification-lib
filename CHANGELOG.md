@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add automatic registration of notification types defined by a `NotificationTypeProvider` interface (CIS-3607)
+
 ## [2.1.0] - 2026-03-04
 
 ### Added
@@ -16,7 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Declared NotificationValidator a functional interface for compile-time checking (CIS-3589)
-- Add automatic registration of notification types defined by a `NotificationTypeProvider` interface (CIS-3607)
 
 ## [2.0.0] - 2025-10-22
 
