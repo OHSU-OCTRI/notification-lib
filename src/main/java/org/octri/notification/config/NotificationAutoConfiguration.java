@@ -4,16 +4,22 @@ import org.octri.notification.batch.NotificationBatchJob;
 import org.octri.notification.controller.NotificationController;
 import org.octri.notification.converter.NotificationStatusMvcConverter;
 import org.octri.notification.registry.NotificationStatusRegistry;
+import org.octri.notification.registry.NotificationTypeProvider;
 import org.octri.notification.registry.NotificationTypeRegistry;
 import org.octri.notification.repository.NotificationRepository;
 import org.octri.notification.service.NotificationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.util.Assert;
 
 /**
  * Configuration for the notification library.
@@ -26,8 +32,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Import({ NotificationBatchConfig.class, TwilioStatusBatchConfig.class, NotificationController.class })
 public class NotificationAutoConfiguration {
 
+	private static final Logger log = LoggerFactory.getLogger(NotificationAutoConfiguration.class);
+
 	/**
-	 * 
+	 *
 	 * @return a bean for the notification type registry
 	 */
 	@Bean
@@ -36,7 +44,7 @@ public class NotificationAutoConfiguration {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return a bean for the notification status registry
 	 */
 	@Bean
@@ -45,7 +53,7 @@ public class NotificationAutoConfiguration {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param notificationStatusRegistry
 	 *            the notification status registry
 	 * @return a bean for the notification status MVC converter
@@ -57,7 +65,7 @@ public class NotificationAutoConfiguration {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param notificationRepository
 	 *            the notification repository
 	 * @param notificationTypeRegistry
@@ -71,6 +79,32 @@ public class NotificationAutoConfiguration {
 			NotificationTypeRegistry notificationTypeRegistry,
 			NotificationBatchJob notificationBatchJob) {
 		return new NotificationService(notificationRepository, notificationTypeRegistry, notificationBatchJob);
+	}
+
+	/**
+	 * Discovers notification types from {@link NotificationTypeProvider} beans and registers them with the
+	 * {@link NotificationTypeRegistry}.
+	 *
+	 * @param event
+	 */
+	@EventListener
+	public void autoRegisterNotificationTypes(ContextRefreshedEvent event) {
+		var applicationContext = event.getApplicationContext();
+		var notificationTypeRegistry = applicationContext.getBean(NotificationTypeRegistry.class);
+		Assert.notNull(notificationTypeRegistry, "NotificationTypeRegistry bean not found in application context");
+
+		log.info("Auto-registering notification types from NotificationTypeProvider beans");
+		applicationContext.getBeansOfType(NotificationTypeProvider.class).values().forEach(provider -> {
+			log.debug("Discovered provider {} for notification type {}", provider.getClass().getSimpleName(),
+					provider.getNotificationType());
+			notificationTypeRegistry.register(
+					provider.getNotificationType(),
+					provider.getProcessingMode(),
+					provider.getNotificationMetadata(),
+					provider.getNotificationValidator(),
+					provider.getNotificationDispatcher(),
+					provider.getNotificationViewer());
+		});
 	}
 
 }

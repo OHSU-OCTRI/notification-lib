@@ -23,7 +23,7 @@ public class NotificationTypeRegistry {
 	private final Map<String, NotificationHandler> handlers = new ConcurrentHashMap<>();
 
 	/**
-	 * 
+	 *
 	 * @param type
 	 *            a unique string representation of the Notification type
 	 * @param mode
@@ -45,7 +45,7 @@ public class NotificationTypeRegistry {
 				mode.name(),
 				validator.getClass().getSimpleName(),
 				dispatcher.getClass().getSimpleName(),
-				viewer.getClass().getName());
+				viewer.getClass().getSimpleName());
 		if (handlers.containsKey(type)) {
 			logger.warn("Notification type {} is already registered. Overwriting.", type);
 		}
@@ -53,7 +53,7 @@ public class NotificationTypeRegistry {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return the set of types that are registered
 	 */
 	public Set<String> getRegisteredTypes() {
@@ -61,7 +61,7 @@ public class NotificationTypeRegistry {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param type
 	 *            the type string
 	 * @return the NotificationHandler for the given type
