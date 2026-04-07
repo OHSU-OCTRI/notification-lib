@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add automatic registration of notification types defined by a `NotificationTypeProvider` interface (CIS-3607)
 
+### Changed
+
+- Bumped the common-lib dependency to 2.0.1-SNAPSHOT, to reflect changes in `table-filtering.js` (OPEN-363)
+
 ## [2.1.0] - 2026-03-04
 
 ### Added

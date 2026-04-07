@@ -43,7 +43,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>17</java.version>
-		<common_lib.version>1.8.0</common_lib.version>
+		<common_lib.version>2.0.1-SNAPSHOT</common_lib.version>
 		<messaginglib.version>0.2.1</messaginglib.version>
 		<node.version>v22.15.0</node.version>
 	</properties>
@@ -55,6 +55,16 @@
 			<url>https://maven.pkg.github.com/OHSU-OCTRI/notification-lib</url>
 		</repository>
 	</distributionManagement>
+
+	<repositories>
+		<repository>
+			<id>central-snapshots</id>
+			<url>https://central.sonatype.com/repository/maven-snapshots/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
