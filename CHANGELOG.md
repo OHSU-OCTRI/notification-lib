@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.0] - 2026-04-17
+
 ### Added
 
 - Add automatic registration of notification types defined by a `NotificationTypeProvider` interface (CIS-3607)
@@ -96,7 +98,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Use Spring Boot Autoconfiguration (CIS-3347)
 
-[unreleased]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.1.0...HEAD
+[unreleased]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/OHSU-OCTRI/notification-lib/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/OHSU-OCTRI/notification-lib/compare/v0.3.0...v1.0.0
