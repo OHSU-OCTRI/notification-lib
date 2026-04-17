@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Bumped the common-lib dependency to 2.0.1-SNAPSHOT, to reflect changes in `table-filtering.js` (OPEN-363)
+- Pinned common-lib to version 2.0.1 (CIS-3681)
 
 ## [2.1.0] - 2026-03-04
 
