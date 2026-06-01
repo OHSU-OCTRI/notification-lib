@@ -137,6 +137,8 @@ public class NotificationController extends AbstractEntityController<Notificatio
 						null));
 		model.put("notificationTypeOptions",
 				OptionList.forStrings(new ArrayList<String>(notificationTypeRegistry.getRegisteredTypes()), null));
+		ViewUtils.addPageScript(model, "notificationlib-vendor.js");
+		ViewUtils.addPageScript(model, "datetime-picker.js");
 		return template;
 	}
 
@@ -156,7 +158,8 @@ public class NotificationController extends AbstractEntityController<Notificatio
 		model.put("notificationTypeOptions",
 				OptionList.forStrings(new ArrayList<String>(notificationTypeRegistry.getRegisteredTypes()),
 						entity.getNotificationType()));
-
+		ViewUtils.addPageScript(model, "notificationlib-vendor.js");
+		ViewUtils.addPageScript(model, "datetime-picker.js");
 		return template;
 	}
 

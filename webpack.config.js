@@ -20,7 +20,8 @@ module.exports = {
     jquery: 'jQuery'
   },
   entry: {
-    'delivery-details': entrypointPath('delivery-details.js')
+    'delivery-details': entrypointPath('delivery-details.js'),
+    'datetime-picker': entrypointPath('datetime-picker.js')
   },
   resolve: {
     alias: {

@@ -52,8 +52,12 @@
 
 <div class="form-group">
     <label for="date_time_processed" class="form-label">{{#i18n}}notification.dateTimeProcessed.label{{/i18n}}</label>
-    <div class="input-group date-control">
-        <input type="text" class="form-control" id="date_time_processed" name="dateTimeProcessed" value="{{#dateTimeProcessed}}{{.}}{{/dateTimeProcessed}}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" placeholder="yyyy-mm-dd" autocomplete="off" data-provide="datepicker">
+    <div class="input-group datetime-control">
+        <input type="text" class="form-control" id="date_time_processed" name="dateTimeProcessed"
+            value="{{#dateTimeProcessed}}{{.}}{{/dateTimeProcessed}}"
+            data-provide="datetimepicker"
+            data-date-time-format="{{#octriViewConfig}}{{dateTimePattern}}{{/octriViewConfig}}{{^octriViewConfig}}yyyy-MM-dd HH:mm:ss{{/octriViewConfig}}"
+            autocomplete="off">
         <span class="input-group-text rounded-end"><i class="far fa-calendar-alt"></i></span>
     </div>
 </div>
