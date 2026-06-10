@@ -45,7 +45,7 @@
 		<java.version>17</java.version>
 		<common_lib.version>2.1.0</common_lib.version>
 		<messaginglib.version>0.2.1</messaginglib.version>
-		<node.version>v22.15.0</node.version>
+		<node.version>v24.16.0</node.version>
 	</properties>
 
 	<distributionManagement>
