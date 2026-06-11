@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.2] - 2026-06-11
+
 ### Dependencies
 
 - Use Node.js 24.x for front end tooling (CIS-3719)
@@ -109,7 +111,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Use Spring Boot Autoconfiguration (CIS-3347)
 
-[unreleased]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.1...HEAD
+[unreleased]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.2...HEAD
+[2.2.2]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.0.0...v2.1.0
