@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Dependencies
+
+- Bump `org.sonatype.central:central-publishing-maven-plugin` from 0.10.0 to 0.11.0 ([#45](https://github.com/OHSU-OCTRI/notification-lib/pull/45))
+
 ## Changed
 
 - Use shared GitHub Actions workflows (CIS-3773)
