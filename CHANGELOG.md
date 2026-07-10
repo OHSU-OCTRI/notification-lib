@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Dependencies
 
+- Bumps org.sonatype.central:central-publishing-maven-plugin from 0.10.0 to 0.11.0
 - Bumps org.springframework.boot:spring-boot-starter-parent from 3.5.14 to 3.5.16
 
 ## [2.2.2] - 2026-06-11
