@@ -44,7 +44,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>17</java.version>
 		<common_lib.version>2.1.1</common_lib.version>
-		<messaginglib.version>0.2.2</messaginglib.version>
+		<messaginglib.version>0.2.3</messaginglib.version>
 		<node.version>v24.16.0</node.version>
 	</properties>
 
