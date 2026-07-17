@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Use Node.js 24.x for front end tooling (CIS-3719)
 - Run `npm audit fix` to resolve Node.js vulnerabilities (CIS-3719)
+- Run `npm audit fix` to resolve Node.js vulnerabilities (CIS-3784)
 
 ## [2.2.1] - 2026-06-01
 
