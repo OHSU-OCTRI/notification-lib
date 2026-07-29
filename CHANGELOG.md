@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bumps org.octri.messaging:messaging_lib from 0.2.1 to 0.2.2
 - Bumps org.octri.common:common_lib from 2.1.0 to 2.1.1
 - Bumps org.octri.messaging:messaging_lib from 0.2.2 to 0.2.3
+- Run `npm audit fix` to resolve Node.js vulnerabilities (CIS-3790)
 
 ## [2.2.2] - 2026-06-11
 
