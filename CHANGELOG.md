@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added 
+
+- New actions workflow to update Node.js dependencies on a schedule (CIS-3820)
+
 ## [2.2.3] - 2026-07-29
 
-## Changed
+### Changed
 
 - Use shared GitHub Actions workflows (CIS-3773)
 - Create a test build workflow to handle PRs (CIS-3773)
