@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - New actions workflow to update Node.js dependencies on a schedule (CIS-3820)
 
+### Dependencies
+
+- Run `npm audit fix` to resolve Node.js vulnerabilities (CIS-3824)
+
 ## [2.2.3] - 2026-07-29
 
 ### Changed
