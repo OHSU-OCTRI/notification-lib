@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Dependencies
 
 - Bumps common_lib from 2.1.1 to 2.1.3 (CIS-3862)
+- Run `npm audit fix` to resolve Node.js vulnerabilities (CIS-3862)
 
 ### Dependencies
 ## [2.2.4] - 2026-08-21
