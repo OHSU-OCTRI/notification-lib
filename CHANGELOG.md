@@ -7,12 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.5] - 2026-09-16
+
 ### Dependencies
 
 - Bumps common_lib from 2.1.1 to 2.1.3 (CIS-3862)
 - Run `npm audit fix` to resolve Node.js vulnerabilities (CIS-3862)
 
 ### Dependencies
+
 ## [2.2.4] - 2026-08-21
 
 ### Added
@@ -144,7 +147,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Use Spring Boot Autoconfiguration (CIS-3347)
 
-[unreleased]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.4...HEAD
+[unreleased]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.5...HEAD
+[2.2.5]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.4...v2.2.5
 [2.2.4]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.3...v2.2.4
 [2.2.3]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.2...v2.2.3
 [2.2.2]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.1...v2.2.2
