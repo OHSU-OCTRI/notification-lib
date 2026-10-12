@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Bumps frontend-maven-plugin from 1.15.4 to 2.0.2 (CIS-3862)
 - Bumps central-publishing-maven-plugin from 0.10.0 to 0.11.0 (CIS-3862)
+- Run `npm audit fix` to resolve Node.js vulnerabilities (CIS-3889)
 
 ## [2.2.5] - 2026-09-16
 
