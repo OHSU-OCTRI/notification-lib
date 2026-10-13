@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.6] - 2026-10-13
+
 ### Changed
 
 - Add Spring Boot 4 branch to branches that publish artifacts (CIS-3901)
@@ -157,7 +159,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Use Spring Boot Autoconfiguration (CIS-3347)
 
-[unreleased]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.5...HEAD
+[unreleased]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.6...HEAD
+[2.2.6]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.5...v2.2.6
 [2.2.5]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.4...v2.2.5
 [2.2.4]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.3...v2.2.4
 [2.2.3]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.2...v2.2.3
