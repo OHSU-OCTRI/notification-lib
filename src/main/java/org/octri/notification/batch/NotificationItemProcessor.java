@@ -7,7 +7,7 @@ import org.octri.notification.registry.NotificationTypeRegistry;
 import org.octri.notification.validator.NotificationValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.infrastructure.item.ItemProcessor;
 
 /**
  * The processor checks whether the Notification is still valid and persists the ValidationStatus back

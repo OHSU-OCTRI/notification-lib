@@ -1,10 +1,11 @@
 package org.octri.notification.batch;
 
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.configuration.DuplicateJobException;
-import org.springframework.batch.core.explore.JobExplorer;
-import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.job.Job;
+import org.springframework.batch.core.job.parameters.JobParameters;
+import org.springframework.batch.core.job.parameters.JobParametersBuilder;
+import org.springframework.batch.core.launch.JobOperator;
+import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 
 /**
@@ -17,8 +18,8 @@ public class TwilioStatusUpdateJob {
 	 */
 	public static final String TWILIO_UPDATE_JOB_NAME = "twilioUpdateJob";
 
-	private final JobExplorer jobExplorer;
-	private final JobLauncher jobLauncher;
+	private final JobRepository jobExplorer;
+	private final JobOperator jobLauncher;
 	private final Job twilioUpdateJob;
 
 	/**
@@ -30,7 +31,7 @@ public class TwilioStatusUpdateJob {
 	 * @param twilioUpdateJob
 	 *            the job for checking Twilio
 	 */
-	public TwilioStatusUpdateJob(JobExplorer jobExplorer, JobLauncher jobLauncher, Job twilioUpdateJob) {
+	public TwilioStatusUpdateJob(JobRepository jobExplorer, JobOperator jobLauncher, Job twilioUpdateJob) {
 		this.jobExplorer = jobExplorer;
 		this.jobLauncher = jobLauncher;
 		this.twilioUpdateJob = twilioUpdateJob;

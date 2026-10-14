@@ -9,19 +9,18 @@ import org.octri.notification.domain.Notification;
 import org.octri.notification.domain.ProcessingMode;
 import org.octri.notification.registry.NotificationTypeRegistry;
 import org.octri.notification.repository.NotificationRepository;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepScope;
-import org.springframework.batch.core.explore.JobExplorer;
+import org.springframework.batch.core.job.Job;
+import org.springframework.batch.core.step.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
-import org.springframework.batch.core.launch.JobLauncher;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.core.job.parameters.RunIdIncrementer;
+import org.springframework.batch.core.launch.JobOperator;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.item.ItemProcessor;
-import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.infrastructure.item.ItemProcessor;
+import org.springframework.batch.infrastructure.item.ItemReader;
+import org.springframework.batch.infrastructure.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -36,8 +35,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Configuration
 public class NotificationBatchConfig {
 
-	private final JobExplorer jobExplorer;
-	private final JobLauncher jobLauncher;
+	private final JobRepository jobExplorer;
+	private final JobOperator jobLauncher;
 	private final JobRepository jobRepository;
 	private final PlatformTransactionManager transactionManager;
 	private final NotificationRepository notificationRepository;
@@ -64,7 +63,7 @@ public class NotificationBatchConfig {
 	 * @param recipientFinder
 	 *            the finder for recipients
 	 */
-	public NotificationBatchConfig(JobExplorer jobExplorer, JobLauncher jobLauncher, JobRepository jobRepository,
+	public NotificationBatchConfig(JobRepository jobExplorer, JobOperator jobLauncher, JobRepository jobRepository,
 			PlatformTransactionManager transactionManager,
 			NotificationRepository notificationRepository, NotificationProperties notificationProperties,
 			NotificationTypeRegistry notificationTypeRegistry, IdentifiableEntityFinder<?> recipientFinder) {
@@ -157,7 +156,8 @@ public class NotificationBatchConfig {
 
 	private Step processNotificationsStep(ItemReader<Notification> reader) {
 		return new StepBuilder("processNotificationsStep", jobRepository)
-				.<Notification, Notification> chunk(notificationProperties.getChunkSize(), transactionManager)
+				.<Notification, Notification> chunk(notificationProperties.getChunkSize())
+				. transactionManager(transactionManager)
 				.reader(reader)
 				.processor(notificationItemProcessor())
 				.writer(notificationItemWriter())

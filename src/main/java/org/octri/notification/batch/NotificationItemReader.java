@@ -13,7 +13,7 @@ import org.octri.notification.registry.NotificationTypeRegistry;
 import org.octri.notification.repository.NotificationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.infrastructure.item.ItemReader;
 
 /**
  * The reader finds the notifications that are due for processing.

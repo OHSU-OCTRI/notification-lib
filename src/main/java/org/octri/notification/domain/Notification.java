@@ -6,11 +6,9 @@ import java.time.format.DateTimeFormatter;
 
 import org.octri.common.domain.AbstractEntity;
 import org.octri.notification.metadata.NotificationMetadata;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -81,7 +79,7 @@ public class Notification extends AbstractEntity {
 	 * Custom ObjectMapper for serializing/deserializing metadata
 	 */
 	@Transient
-	private ObjectMapper mapper = new ObjectMapper();
+	private ObjectMapper mapper = new JsonMapper();
 
 	/**
 	 * The recipient entity. The caller must ensure this is set along with the recipientUuid
@@ -120,11 +118,6 @@ public class Notification extends AbstractEntity {
 	}
 
 	private void configureMapper() {
-		// Adds support for LocalDate
-		mapper.registerModule(new JavaTimeModule());
-		mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-		// This ensures that an empty NotificationMetadata can be serialized
-		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		// This ensures unnecessary fields aren't serialized/deserialized if the ReminderDayProgressionTracker is used
 		mapper.addMixIn(ReminderDayProgressionTracker.class, ProgressionTrackerMixin.class);
 	}
@@ -226,7 +219,7 @@ public class Notification extends AbstractEntity {
 	public void setNotificationMetadata(NotificationMetadata notificationMetadata) {
 		try {
 			this.notificationMetadata = mapper.writeValueAsString(notificationMetadata);
-		} catch (JsonProcessingException e) {
+		} catch (JacksonException e) {
 			throw new RuntimeException("Failed to serialize metadata", e);
 		}
 	}
@@ -293,7 +286,7 @@ public class Notification extends AbstractEntity {
 	public void setNotificationStatusMetadata(NotificationStatusMetadata notificationStatusMetadataRecord) {
 		try {
 			this.notificationStatusMetadata = mapper.writeValueAsString(notificationStatusMetadataRecord);
-		} catch (JsonProcessingException e) {
+		} catch (JacksonException e) {
 			throw new RuntimeException(
 					"Failed to serialize status metadata", e);
 		}

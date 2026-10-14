@@ -1,12 +1,12 @@
 package org.octri.notification.batch;
 
 import org.octri.notification.domain.ProcessingMode;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.configuration.DuplicateJobException;
-import org.springframework.batch.core.explore.JobExplorer;
-import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.job.Job;
+import org.springframework.batch.core.job.parameters.JobParameters;
+import org.springframework.batch.core.job.parameters.JobParametersBuilder;
+import org.springframework.batch.core.launch.JobOperator;
+import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 
 /**
@@ -14,8 +14,8 @@ import org.springframework.scheduling.annotation.Scheduled;
  */
 public class NotificationBatchJob {
 
-	private final JobExplorer jobExplorer;
-	private final JobLauncher jobLauncher;
+	private final JobRepository jobExplorer;
+	private final JobOperator jobLauncher;
 	private final Job notificationJob;
 
 	/**
@@ -27,7 +27,7 @@ public class NotificationBatchJob {
 	 * @param notificationJob
 	 *            the notificationJob bean
 	 */
-	public NotificationBatchJob(JobExplorer jobExplorer, JobLauncher jobLauncher, Job notificationJob) {
+	public NotificationBatchJob(JobRepository jobExplorer, JobOperator jobLauncher, Job notificationJob) {
 		this.jobExplorer = jobExplorer;
 		this.jobLauncher = jobLauncher;
 		this.notificationJob = notificationJob;
