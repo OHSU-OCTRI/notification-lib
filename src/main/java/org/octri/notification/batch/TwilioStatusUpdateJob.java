@@ -24,9 +24,9 @@ public class TwilioStatusUpdateJob {
 	/**
 	 * 
 	 * @param jobRepository
-	 *            the job explorer
+	 *            the jobRepostiory
 	 * @param jobOperator
-	 *            the job operator
+	 *            the jobOperator
 	 * @param twilioUpdateJob
 	 *            the job for checking Twilio
 	 */
