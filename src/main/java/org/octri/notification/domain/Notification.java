@@ -6,14 +6,14 @@ import java.time.format.DateTimeFormatter;
 
 import org.octri.common.domain.AbstractEntity;
 import org.octri.notification.metadata.NotificationMetadata;
-import tools.jackson.core.JacksonException;
-import tools.jackson.databind.ObjectMapper;
-import tools.jackson.databind.json.JsonMapper;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * Entity representing a notification to a {@link Recipient}
@@ -76,10 +76,11 @@ public class Notification extends AbstractEntity {
 	private String notificationStatusMetadata;
 
 	/**
-	 * Custom ObjectMapper for serializing/deserializing metadata
+	 * Custom ObjectMapper for serializing/deserializing metadata. This is intentionally independent of the
+	 * application's JsonMapper so that customizations made by a consuming application cannot change the format of
+	 * data persisted to the database.
 	 */
-	@Transient
-	private ObjectMapper mapper = new JsonMapper();
+	private static final ObjectMapper mapper = createMapper();
 
 	/**
 	 * The recipient entity. The caller must ensure this is set along with the recipientUuid
@@ -103,7 +104,6 @@ public class Notification extends AbstractEntity {
 	 * Create an empty Notification
 	 */
 	public Notification() {
-		this.configureMapper();
 	}
 
 	/**
@@ -113,13 +113,14 @@ public class Notification extends AbstractEntity {
 	 *            the recipient entity
 	 */
 	public Notification(Recipient relatedEntity) {
-		this.configureMapper();
 		this.setRecipient(relatedEntity);
 	}
 
-	private void configureMapper() {
-		// This ensures unnecessary fields aren't serialized/deserialized if the ReminderDayProgressionTracker is used
-		mapper.addMixIn(ReminderDayProgressionTracker.class, ProgressionTrackerMixin.class);
+	private static ObjectMapper createMapper() {
+		return JsonMapper.builder()
+				// This ensures unnecessary fields aren't serialized/deserialized for ReminderDayProgressionTracker
+				.addMixIn(ReminderDayProgressionTracker.class, ProgressionTrackerMixin.class)
+				.build();
 	}
 
 	/**
