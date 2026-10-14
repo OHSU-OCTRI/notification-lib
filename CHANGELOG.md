@@ -7,7 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix release workflow by bumping central-publishing-maven-plugin from 0.11.0 to 0.12.0 (CIS-3915)
+
 ## [2.2.6] - 2026-10-13
+
+**Do not use this version**
+
+> 2.2.6 Release not published due to automation error
 
 ### Changed
 
