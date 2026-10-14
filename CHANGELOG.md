@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.7] - 2026-10-14
+
 ### Fixed
 
 - Fix release workflow by bumping central-publishing-maven-plugin from 0.11.0 to 0.12.0 (CIS-3915)
@@ -167,7 +169,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Use Spring Boot Autoconfiguration (CIS-3347)
 
-[unreleased]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.6...HEAD
+[unreleased]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.7...HEAD
+[2.2.7]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.6...v2.2.7
 [2.2.6]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.5...v2.2.6
 [2.2.5]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.4...v2.2.5
 [2.2.4]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.3...v2.2.4
