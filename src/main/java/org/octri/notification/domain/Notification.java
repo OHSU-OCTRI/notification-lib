@@ -11,7 +11,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
-import tools.jackson.core.JacksonException;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.json.JsonMapper;
 
@@ -218,11 +217,7 @@ public class Notification extends AbstractEntity {
 	 *            the notification metadata object
 	 */
 	public void setNotificationMetadata(NotificationMetadata notificationMetadata) {
-		try {
-			this.notificationMetadata = mapper.writeValueAsString(notificationMetadata);
-		} catch (JacksonException e) {
-			throw new RuntimeException("Failed to serialize metadata", e);
-		}
+		this.notificationMetadata = mapper.writeValueAsString(notificationMetadata);
 	}
 
 	/**
@@ -285,12 +280,7 @@ public class Notification extends AbstractEntity {
 	 *            the notification status metadata record
 	 */
 	public void setNotificationStatusMetadata(NotificationStatusMetadata notificationStatusMetadataRecord) {
-		try {
-			this.notificationStatusMetadata = mapper.writeValueAsString(notificationStatusMetadataRecord);
-		} catch (JacksonException e) {
-			throw new RuntimeException(
-					"Failed to serialize status metadata", e);
-		}
+		this.notificationStatusMetadata = mapper.writeValueAsString(notificationStatusMetadataRecord);
 	}
 
 	/**
