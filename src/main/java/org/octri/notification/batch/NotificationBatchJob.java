@@ -1,12 +1,12 @@
 package org.octri.notification.batch;
 
 import org.octri.notification.domain.ProcessingMode;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.configuration.DuplicateJobException;
-import org.springframework.batch.core.explore.JobExplorer;
-import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.job.Job;
+import org.springframework.batch.core.job.parameters.JobParameters;
+import org.springframework.batch.core.job.parameters.JobParametersBuilder;
+import org.springframework.batch.core.launch.JobOperator;
+import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 
 /**
@@ -14,22 +14,22 @@ import org.springframework.scheduling.annotation.Scheduled;
  */
 public class NotificationBatchJob {
 
-	private final JobExplorer jobExplorer;
-	private final JobLauncher jobLauncher;
+	private final JobRepository jobRepository;
+	private final JobOperator jobOperator;
 	private final Job notificationJob;
 
 	/**
 	 * 
-	 * @param jobExplorer
-	 *            the JobExplorer
-	 * @param jobLauncher
-	 *            the JobLauncher
+	 * @param jobRepository
+	 *            the jobRepository
+	 * @param jobOperator
+	 *            the jobOperator
 	 * @param notificationJob
 	 *            the notificationJob bean
 	 */
-	public NotificationBatchJob(JobExplorer jobExplorer, JobLauncher jobLauncher, Job notificationJob) {
-		this.jobExplorer = jobExplorer;
-		this.jobLauncher = jobLauncher;
+	public NotificationBatchJob(JobRepository jobRepository, JobOperator jobOperator, Job notificationJob) {
+		this.jobRepository = jobRepository;
+		this.jobOperator = jobOperator;
 		this.notificationJob = notificationJob;
 	}
 
@@ -39,7 +39,7 @@ public class NotificationBatchJob {
 	 * @param mode
 	 *            the job ProcessingMode
 	 * @throws Exception
-	 *             exception thrown by the jobLauncher
+	 *             exception thrown by the jobOperator
 	 */
 	public void runNotificationJob(ProcessingMode mode) throws Exception {
 		if (isJobRunning("notificationJob")) {
@@ -49,14 +49,14 @@ public class NotificationBatchJob {
 				.addLong("time", System.currentTimeMillis())
 				.addString("processingMode", mode.name())
 				.toJobParameters();
-		jobLauncher.run(notificationJob, jobParameters);
+		jobOperator.run(notificationJob, jobParameters);
 	}
 
 	/**
 	 * Run the job to process IMMEDIATE notifications
 	 * 
 	 * @throws Exception
-	 *             exception thrown by the jobLauncher
+	 *             exception thrown by the jobOperator
 	 */
 	public void runImmediateNotificationJob() throws Exception {
 		runNotificationJob(ProcessingMode.IMMEDIATE);
@@ -66,7 +66,7 @@ public class NotificationBatchJob {
 	 * Run the job to process SCHEDULED notifications.
 	 * 
 	 * @throws Exception
-	 *             exception thrown by the jobLauncher
+	 *             exception thrown by the jobOperator
 	 */
 	@Scheduled(cron = "${octri.notifications.schedule:@yearly}", scheduler = "notificationTaskScheduler")
 	public void runScheduledNotificationJob() throws Exception {
@@ -74,6 +74,6 @@ public class NotificationBatchJob {
 	}
 
 	private boolean isJobRunning(String jobName) {
-		return jobExplorer.findRunningJobExecutions(jobName).size() > 0;
+		return jobRepository.findRunningJobExecutions(jobName).size() > 0;
 	}
 }

@@ -7,15 +7,13 @@ import java.time.format.DateTimeFormatter;
 import org.octri.common.domain.AbstractEntity;
 import org.octri.notification.metadata.NotificationMetadata;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * Entity representing a notification to a {@link Recipient}
@@ -78,10 +76,11 @@ public class Notification extends AbstractEntity {
 	private String notificationStatusMetadata;
 
 	/**
-	 * Custom ObjectMapper for serializing/deserializing metadata
+	 * Custom ObjectMapper for serializing/deserializing metadata. This is intentionally independent of the
+	 * application's JsonMapper so that customizations made by a consuming application cannot change the format of
+	 * data persisted to the database.
 	 */
-	@Transient
-	private ObjectMapper mapper = new ObjectMapper();
+	private static final ObjectMapper mapper = createMapper();
 
 	/**
 	 * The recipient entity. The caller must ensure this is set along with the recipientUuid
@@ -105,7 +104,6 @@ public class Notification extends AbstractEntity {
 	 * Create an empty Notification
 	 */
 	public Notification() {
-		this.configureMapper();
 	}
 
 	/**
@@ -115,18 +113,14 @@ public class Notification extends AbstractEntity {
 	 *            the recipient entity
 	 */
 	public Notification(Recipient relatedEntity) {
-		this.configureMapper();
 		this.setRecipient(relatedEntity);
 	}
 
-	private void configureMapper() {
-		// Adds support for LocalDate
-		mapper.registerModule(new JavaTimeModule());
-		mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-		// This ensures that an empty NotificationMetadata can be serialized
-		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-		// This ensures unnecessary fields aren't serialized/deserialized if the ReminderDayProgressionTracker is used
-		mapper.addMixIn(ReminderDayProgressionTracker.class, ProgressionTrackerMixin.class);
+	private static ObjectMapper createMapper() {
+		return JsonMapper.builder()
+				// This ensures unnecessary fields aren't serialized/deserialized for ReminderDayProgressionTracker
+				.addMixIn(ReminderDayProgressionTracker.class, ProgressionTrackerMixin.class)
+				.build();
 	}
 
 	/**
@@ -226,7 +220,7 @@ public class Notification extends AbstractEntity {
 	public void setNotificationMetadata(NotificationMetadata notificationMetadata) {
 		try {
 			this.notificationMetadata = mapper.writeValueAsString(notificationMetadata);
-		} catch (JsonProcessingException e) {
+		} catch (JacksonException e) {
 			throw new RuntimeException("Failed to serialize metadata", e);
 		}
 	}
@@ -293,7 +287,7 @@ public class Notification extends AbstractEntity {
 	public void setNotificationStatusMetadata(NotificationStatusMetadata notificationStatusMetadataRecord) {
 		try {
 			this.notificationStatusMetadata = mapper.writeValueAsString(notificationStatusMetadataRecord);
-		} catch (JsonProcessingException e) {
+		} catch (JacksonException e) {
 			throw new RuntimeException(
 					"Failed to serialize status metadata", e);
 		}
