@@ -21,7 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.infrastructure.item.Chunk;
 import org.springframework.batch.infrastructure.item.ItemWriter;
-import tools.jackson.core.JacksonException;
 
 /**
  * The writer tries to send the notification if it is still valid and sets the status.
@@ -126,7 +125,6 @@ public class NotificationItemWriter implements ItemWriter<Notification> {
 	 * @param notification
 	 * @param progressionTracker
 	 * @return
-	 * @throws JacksonException
 	 */
 	static Optional<Notification> nextNotification(Notification notification,
 			ReminderDayProgressionTracker progressionTracker) {
