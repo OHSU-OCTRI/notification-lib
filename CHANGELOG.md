@@ -7,7 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Dependencies
+
 - Run `npm audit fix` to resolve vulnerabilities (CIS-3955)
+- Upgraded to Java 21 and Spring Boot 4 (CIS-3901)
 
 ## [2.2.7] - 2026-10-14
 
@@ -24,7 +27,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Add Spring Boot 4 branch to branches that publish artifacts (CIS-3901)
-- Upgraded to Java 21 and Spring Boot 4 (CIS-3901)
 
 ### Dependencies
 
