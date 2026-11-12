@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-11-12
+
 ### Dependencies
 
 - Run `npm audit fix` to resolve vulnerabilities (CIS-3955)
@@ -174,7 +176,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Use Spring Boot Autoconfiguration (CIS-3347)
 
-[unreleased]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.7...HEAD
+[unreleased]: https://github.com/OHSU-OCTRI/notification-lib/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.7...v3.0.0
 [2.2.7]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.6...v2.2.7
 [2.2.6]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.5...v2.2.6
 [2.2.5]: https://github.com/OHSU-OCTRI/notification-lib/compare/v2.2.4...v2.2.5
