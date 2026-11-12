@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.octri.notification.domain.DefaultNotificationStatus;
 import org.octri.notification.domain.Notification;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.NativeQuery;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -41,6 +41,6 @@ public interface NotificationRepository extends CrudRepository<Notification, Lon
 	 * 
 	 * @return all the Twilio notifications that have not been checked for final disposition
 	 */
-	@Query(value = queuedTwilioNotificationQuery, nativeQuery = true)
+	@NativeQuery(queuedTwilioNotificationQuery)
 	List<Notification> findAllQueuedTwilioNotifications();
 }

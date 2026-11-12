@@ -8,8 +8,8 @@ import org.octri.notification.domain.Notification.NotificationStatusMetadata;
 import org.octri.notification.repository.NotificationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.batch.item.Chunk;
-import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.infrastructure.item.Chunk;
+import org.springframework.batch.infrastructure.item.ItemWriter;
 
 /**
  * Checks the final disposition of the Notifications in Twilio and updates the Notification status

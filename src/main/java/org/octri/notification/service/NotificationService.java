@@ -43,7 +43,7 @@ public class NotificationService {
 	 *            the notification to save
 	 * @return the persisted notification
 	 * @throws Exception
-	 *             thrown by the JobLauncher if the batch job is triggered
+	 *             thrown by the jobOperator if the batch job is triggered
 	 */
 	public Notification createNew(Notification notification) throws Exception {
 		assert notification.getId() == null;
@@ -64,7 +64,7 @@ public class NotificationService {
 	 *            the notifications to save
 	 * @return the persisted notifications
 	 * @throws Exception
-	 *             thrown by the JobLauncher if the batch job is triggered
+	 *             thrown by the jobOperator if the batch job is triggered
 	 */
 	public Iterable<Notification> createAll(Iterable<Notification> notifications) throws Exception {
 		Iterable<Notification> saved = notificationRepository.saveAll(notifications);

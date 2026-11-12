@@ -17,8 +17,6 @@ import org.octri.notification.domain.Notification;
 import org.octri.notification.domain.Notification.NotificationStatusMetadata;
 import org.octri.notification.domain.ValidationResult;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 public class NotificationItemWriterTest {
 
 	private final static LocalDate TODAY = LocalDate.now();
@@ -26,7 +24,7 @@ public class NotificationItemWriterTest {
 	private final static String recipientUuid1 = UUID.randomUUID().toString();
 
 	@Test
-	void testNextNotificationIsFinal() throws JsonProcessingException {
+	void testNextNotificationIsFinal() {
 		ProgressionTrackerMetadataExample metadata = new ProgressionTrackerMetadataExample(TODAY, List.of(0));
 		var notification = NotificationTestUtil.createNotification("example", new RecipientExample(recipientUuid1),
 				metadata, TODAY);
@@ -35,7 +33,7 @@ public class NotificationItemWriterTest {
 	}
 
 	@Test
-	void testNextNotificationIsPast() throws JsonProcessingException {
+	void testNextNotificationIsPast() {
 		ProgressionTrackerMetadataExample metadata = new ProgressionTrackerMetadataExample(LAST_WEEK,
 				List.of(0, 1, 2, 3));
 		var notification = NotificationTestUtil.createNotification("example", new RecipientExample(recipientUuid1),
@@ -45,7 +43,7 @@ public class NotificationItemWriterTest {
 	}
 
 	@Test
-	void testNextNotificationIsFirstFuture() throws JsonProcessingException {
+	void testNextNotificationIsFirstFuture() {
 		ProgressionTrackerMetadataExample metadata = new ProgressionTrackerMetadataExample(LAST_WEEK,
 				List.of(0, 6, 7, 8, 10));
 		var notification = NotificationTestUtil.createNotification("example", new RecipientExample(recipientUuid1),
